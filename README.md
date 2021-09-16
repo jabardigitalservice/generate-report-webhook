@@ -34,8 +34,8 @@ As for the limitations of this generated git webhook report for private repos, t
 ## Quick Start
 Clone project and install dependencies:
 ```bash
-git clone https://github.com/jabardigitalservice/webhook-git-generate-report-telegram-bot.git
-cd webhook-git-generate-report-telegram-bot
+git clone https://github.com/jabardigitalservice/generate-report-webhook.git
+cd generate-report-webhook
 cp .env.example .env
 ```
 
