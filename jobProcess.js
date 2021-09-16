@@ -9,12 +9,12 @@ const elastic = connectQueue('elastic')
 
 github.process(async function (job, done) {
   console.log('process github ...')
-  await execJob(job, done, payload(job.data))
+  execJob(job, done, payload(job.data))
 })
 
 gitlab.process(async function (job, done) {
   console.log('process gitlab ...')
-  await execJob(job, done, payload(job.data))
+  execJob(job, done, payload(job.data))
 })
 
 elastic.process(async function (job, done) {
