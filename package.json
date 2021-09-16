@@ -1,0 +1,38 @@
+{
+  "name": "webhook-git-generate-report-telegram-bot",
+  "version": "1.0.0",
+  "description": "Webhook Git Generate Report Telegram Bot",
+  "main": "server.js",
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.14.1",
+    "body-parser": "^1.19.0",
+    "bull": "^3.29.2",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "input": "^1.0.1",
+    "moment": "^2.29.1",
+    "puppeteer": "^10.2.0",
+    "random-bigint": "0.0.1",
+    "request": "^2.88.2",
+    "telegram": "^1.8.10"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "nodemon": "^2.0.12"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "job": "node jobProcess.js",
+    "job-dev": "nodemon jobProcess.js",
+    "lint": "eslint --fix --ext .js ."
+  },
+  "author": "ayocodingit",
+  "license": "MIT",
+  "type": "module"
+}
