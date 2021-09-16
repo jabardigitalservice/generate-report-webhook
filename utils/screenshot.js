@@ -1,6 +1,9 @@
 
 import puppeteer from 'puppeteer'
 import dotEnv from 'dotenv'
+import fs from 'fs'
+const dir = 'tmp'
+
 dotEnv.config()
 
 const account = process.env.ACCOUNT
@@ -19,9 +22,17 @@ const options = {
   }
 }
 
+const generateFilePath = () => {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir)
+  }
+
+  return `${dir}/${Date.now()}${Math.random()}.png`
+}
+
 const screenshot = async (url, git) => {
   const option = options[git]
-  let filePath = `tmp/${Date.now()}${Math.random()}.png`
+  let filePath = generateFilePath()
   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-web-security'] })
   const page = await browser.newPage()
   await page.setViewport({ height: 1280, width: 1080 })

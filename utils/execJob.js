@@ -1,8 +1,10 @@
 import sendTelegram from './sendTelegram.js'
 import templateBody from './templateBody.js'
+import delay from './delay.js'
 
 const execJob = async (job, done, payload) => {
   try {
+    await delay();
     await sendTelegram(job.data.git, await templateBody(done, payload))
     done()
   } catch (error) {

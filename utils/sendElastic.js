@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { connectQueue, optionQueue } from './connectQueue.js'
+import connectQueue from './connectQueue.js'
 const queue = connectQueue('elastic')
 
 const sendBodyIsValid = (payload) => {
@@ -14,7 +14,7 @@ const sendBodyIsValid = (payload) => {
         ...payload.addition,
         isBodyValid: true
       }
-    }, optionQueue)
+    })
   }
 }
 
@@ -25,7 +25,7 @@ const sendBodyIsNotValid = (payload) => {
       ...payload,
       isBodyValid: false
     }
-  }, optionQueue)
+  })
 }
 
 export {
