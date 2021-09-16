@@ -8,17 +8,14 @@ const gitlab = connectQueue('gitlab')
 const elastic = connectQueue('elastic')
 
 github.process(async function (job, done) {
-  console.log('process github ...')
-  execJob(job, done, payload(job.data))
+  await execJob(job, done, payload(job.data))
 })
 
 gitlab.process(async function (job, done) {
-  console.log('process gitlab ...')
-  execJob(job, done, payload(job.data))
+  await execJob(job, done, payload(job.data))
 })
 
 elastic.process(async function (job, done) {
-  console.log('process elastic ...')
   try {
     await clientElastic.index(job.data)
     done()
