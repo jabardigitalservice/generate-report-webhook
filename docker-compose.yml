@@ -4,7 +4,7 @@ services:
     image: "redis:alpine"
     container_name: "${APP_NAME}_REDIS"
     networks:
-      - webhook-git
+      - generate-report-webhook
     volumes:
      - $PWD/redis:/var/lib/redis
 
@@ -14,7 +14,7 @@ services:
       dockerfile: docker-config/Dockerfile
     restart: always
     container_name: "${APP_NAME}_APP"
-    image: webhook-image
+    image: generate-report-webhook
     env_file:
       - .env
     environment:
@@ -24,10 +24,10 @@ services:
     depends_on:
       - redis
     networks:
-      - webhook-git
+      - generate-report-webhook
 
   job:
-    image: webhook-image
+    image: generate-report-webhook
     restart: always
     container_name: "${APP_NAME}_JOB"
     env_file:
@@ -38,7 +38,7 @@ services:
     depends_on:
       - redis
     networks:
-      - webhook-git
+      - generate-report-webhook
 
 networks:
-  webhook-git:
+  generate-report-webhook:

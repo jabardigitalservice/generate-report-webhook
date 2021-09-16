@@ -9,4 +9,12 @@ const connectionQueue = (git) => {
   return new Queue(git, { redis: { host: redisHost, port: redisPort } })
 }
 
-export default connectionQueue
+const optionQueue = {
+  delay: 60000,
+  attempts: 2
+}
+
+export {
+  connectionQueue,
+  optionQueue
+}

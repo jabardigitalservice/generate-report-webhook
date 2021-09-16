@@ -1,4 +1,4 @@
-import connectQueue from './utils/connectQueue.js'
+import { connectQueue } from './utils/connectQueue.js'
 import payload from './utils/payload.js'
 import clientElastic from './utils/connectElastic.js'
 import execJob from './utils/execJob.js'
@@ -20,6 +20,6 @@ elastic.process(async function (job, done) {
     await clientElastic.index(job.data)
     done()
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message)
   }
 })
