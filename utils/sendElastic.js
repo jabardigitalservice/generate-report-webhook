@@ -4,6 +4,7 @@ const queue = connectQueue('elastic')
 
 const sendBodyIsValid = (payload) => {
   const participants = payload.participants.trimEnd().split(/[ ,]+/)
+  delete payload.addition.created_by
   for (const participant of participants) {
     queue.add({
       index: `${process.env.APP_NAME}-${moment().format('YYYY.MM.DD')}`,

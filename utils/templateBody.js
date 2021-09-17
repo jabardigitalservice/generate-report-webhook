@@ -1,11 +1,10 @@
 import { sendBodyIsNotValid } from './sendElastic.js'
 
 const templateBody = async (done, payload) => {
-  const payloadBody = payload.body.toLowerCase()
   const body = getBodyValid({
-    project: payloadRegex.project.exec(payloadBody),
-    title: payloadRegex.title.exec(payloadBody),
-    participants: payloadRegex.participants.exec(payloadBody)
+    project: payloadRegex.project.exec(payload.body),
+    title: payloadRegex.title.exec(payload.body),
+    participants: payloadRegex.participants.exec(payload.body)
   })
 
   delete payload.body
@@ -36,7 +35,7 @@ const getBodyValid = (body) => {
 }
 
 const regex = (string) => {
-  return new RegExp(string)
+  return new RegExp(string, 'i')
 }
 
 const payloadRegex = {
