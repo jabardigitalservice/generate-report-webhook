@@ -18,7 +18,7 @@ gitlab.process(async function (job, done) {
 
 elastic.process(async function (job, done) {
   try {
-    await delay();
+    await delay()
     await clientElastic.index(job.data)
     done()
   } catch (error) {

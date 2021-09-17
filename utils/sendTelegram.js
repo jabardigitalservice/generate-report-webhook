@@ -38,6 +38,7 @@ const sendMessage = async (payload, replyToMsgId) => {
       replyToMsgId: Number(replyToMsgId)
     })
   )
+  if (client.connected) await client.disconnect()
   sendBodyIsValid(payload)
 }
 
