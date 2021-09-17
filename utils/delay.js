@@ -1,5 +1,5 @@
 const delay = async () => {
-  return new Promise(r => setTimeout(r, 1000)) // 1 second
+  return new Promise(r => setTimeout(r, 3000)) // 1 second
 }
 
 export default delay
