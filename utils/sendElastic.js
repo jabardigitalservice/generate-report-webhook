@@ -14,9 +14,6 @@ const sendBodyIsValid = (payload) => {
         ...payload.addition,
         isBodyValid: true
       }
-    }, {
-      delay: 60000,
-      attempts: 2
     })
   }
 }
@@ -28,9 +25,6 @@ const sendBodyIsNotValid = (payload) => {
       ...payload,
       isBodyValid: false
     }
-  }, {
-    delay: 60000,
-    attempts: 2
   })
 }
 

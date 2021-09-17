@@ -20,10 +20,8 @@ app.post('/webhook/:secret/:git', async (req, res) => {
     const git = req.params.git
     if (!isMerged(git, req.body)) return res.send('pending ...')
     const queue = connectQueue(git)
-    queue.add({ git: git, body: req.body }, {
-      delay: 60000,
-      attempts: 2
-    })
+    const body = req.body
+    queue.add({ git, body })
     return res.send('success')
   } catch (error) {
     console.log(error.message)

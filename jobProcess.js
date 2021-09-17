@@ -2,6 +2,7 @@ import connectQueue from './utils/connectQueue.js'
 import payload from './utils/payload.js'
 import clientElastic from './utils/connectElastic.js'
 import execJob from './utils/execJob.js'
+import delay from './utils/delay.js'
 
 const github = connectQueue('github')
 const gitlab = connectQueue('gitlab')
@@ -17,9 +18,10 @@ gitlab.process(async function (job, done) {
 
 elastic.process(async function (job, done) {
   try {
+    await delay();
     await clientElastic.index(job.data)
     done()
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message)
   }
 })
