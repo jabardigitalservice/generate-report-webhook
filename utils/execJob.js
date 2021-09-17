@@ -8,9 +8,10 @@ const execJob = async (job, done, payload) => {
     await delay()
     await sendTelegram(job.data.git, await templateBody(done, payload))
     done()
-    console.log('exec end ' + new Date())
+    return console.log('exec end ' + new Date())
   } catch (error) {
     console.log(error.message)
+    throw error
   }
 }
 
