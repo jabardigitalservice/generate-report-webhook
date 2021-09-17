@@ -4,14 +4,14 @@ import delay from './delay.js'
 
 const execJob = async (job, done, payload) => {
   try {
-    console.log('exec process ' + new Date())
+    console.log(`start ${job.data.git} ${new Date()}`)
     await delay()
     await sendTelegram(job.data.git, await templateBody(done, payload))
     done()
-    return console.log('exec end ' + new Date())
+    console.log(`end ${job.data.git} ${new Date()}`)
   } catch (error) {
+    console.log(`failed ${job.data.git} ${new Date()}`)
     console.log(error.message)
-    throw error
   }
 }
 

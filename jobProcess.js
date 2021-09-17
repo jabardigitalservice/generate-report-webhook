@@ -8,12 +8,12 @@ const github = connectQueue('github')
 const gitlab = connectQueue('gitlab')
 const elastic = connectQueue('elastic')
 
-github.process(async function (job, done) {
-  return await execJob(job, done, payload(job.data))
+github.process(function (job, done) {
+  execJob(job, done, payload(job.data))
 })
 
-gitlab.process(async function (job, done) {
-  return await execJob(job, done, payload(job.data))
+gitlab.process(function (job, done) {
+  execJob(job, done, payload(job.data))
 })
 
 elastic.process(async function (job, done) {
@@ -21,9 +21,7 @@ elastic.process(async function (job, done) {
     await delay()
     await clientElastic.index(job.data)
     done()
-    return new Date
   } catch (error) {
     console.log(error.message)
-    throw error
   }
 })

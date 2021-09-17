@@ -28,7 +28,7 @@ Lampiran: ${payload.url}
 }
 
 const sendMessage = async (payload, replyToMsgId) => {
-  if (!client.connected) await client.connect()
+  if (client.disconnected) await client.connect()
   await client.invoke(
     new Api.messages.SendMessage({
       peer: Number(CHAT_ID),
@@ -38,7 +38,6 @@ const sendMessage = async (payload, replyToMsgId) => {
       replyToMsgId: Number(replyToMsgId)
     })
   )
-  if (client.connected) await client.disconnect()
   sendBodyIsValid(payload)
 }
 
