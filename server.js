@@ -22,7 +22,8 @@ app.post('/webhook/:secret/:git', async (req, res) => {
     const queue = connectQueue(git)
     const body = req.body
     queue.add({ git, body }, {
-      delay: 10000
+      delay: 10000,
+      attempts: 2
     }).then(() => {
       console.log(`add queue ${git} ${new Date}`);
     })
