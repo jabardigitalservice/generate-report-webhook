@@ -91,6 +91,7 @@ const sendTelegram = async (git, payload) => {
     const image = await screenshot(payload.url, git)
     if (!image) return sendMessageWithBot(payload)
     sendPhoto(Object.assign(payload, { picture: image }))
+    return true
   } catch (error) {
     console.log(error.message)
     throw error
