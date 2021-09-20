@@ -12,6 +12,7 @@ const execJob = async (job, done, payload) => {
   } catch (error) {
     console.log(`failed ${job.data.git} ${new Date()}`)
     console.log(error.message)
+    throw error
   }
 }
 

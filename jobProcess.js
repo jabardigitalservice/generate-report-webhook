@@ -23,5 +23,6 @@ elastic.process(async function (job, done) {
     done()
   } catch (error) {
     console.log(error.message)
+    throw error
   }
 })

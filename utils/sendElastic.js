@@ -15,6 +15,10 @@ const sendBodyIsValid = (payload) => {
         ...payload.addition,
         isBodyValid: true
       }
+    }, {
+      priority: 3,
+      removeOnComplete: true,
+      removeOnFail: true
     })
   }
 }
@@ -26,6 +30,10 @@ const sendBodyIsNotValid = (payload) => {
       ...payload,
       isBodyValid: false
     }
+  }, {
+    priority: 2,
+    removeOnComplete: true,
+    removeOnFail: true
   })
 }
 
