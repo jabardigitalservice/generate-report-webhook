@@ -18,7 +18,8 @@ const sendBodyIsValid = (payload) => {
     }, {
       priority: 3,
       removeOnComplete: true,
-      backoff: 10000
+      backoff: 10000,
+      timeout: 60000
     })
   }
 }
@@ -33,7 +34,8 @@ const sendBodyIsNotValid = (payload) => {
   }, {
     priority: 2,
     removeOnComplete: true,
-    backoff: 10000
+    backoff: 10000,
+    timeout: 60000
   })
 }
 
