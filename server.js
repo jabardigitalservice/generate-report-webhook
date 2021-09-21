@@ -26,7 +26,8 @@ app.post('/webhook/:secret/:git', async (req, res) => {
       attempts: 3,
       priority: 1,
       removeOnComplete: true,
-      backoff: 10000
+      backoff: 10000,
+      timeout: 10000
     }).then(() => {
       console.log(`add queue ${git} ${new Date()}`)
     })
