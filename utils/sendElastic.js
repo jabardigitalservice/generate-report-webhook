@@ -1,5 +1,7 @@
 import moment from 'moment'
 import connectQueue from './connectQueue.js'
+import { elasticOptions } from './jobOptions.js'
+
 const queue = connectQueue('elastic')
 
 const sendBodyIsValid = (payload) => {
@@ -15,12 +17,7 @@ const sendBodyIsValid = (payload) => {
         ...payload.addition,
         isBodyValid: true
       }
-    }, {
-      priority: 3,
-      removeOnComplete: true,
-      backoff: 10000,
-      timeout: 60000
-    })
+    }, elasticOptions)
   }
 }
 
@@ -31,12 +28,7 @@ const sendBodyIsNotValid = (payload) => {
       ...payload,
       isBodyValid: false
     }
-  }, {
-    priority: 2,
-    removeOnComplete: true,
-    backoff: 10000,
-    timeout: 60000
-  })
+  }, elasticOptions)
 }
 
 export {

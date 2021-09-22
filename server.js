@@ -4,6 +4,8 @@ import express from 'express'
 import verifySecretKey from './utils/verifySecretKey.js'
 import connectQueue from './utils/connectQueue.js'
 import isMerged from './utils/isMerged.js'
+import { gitOptions } from './utils/jobOptions.js'
+
 dotEnv.config()
 
 const app = express()
@@ -21,14 +23,7 @@ app.post('/webhook/:secret/:git', async (req, res) => {
     if (!isMerged(git, req.body)) return res.send('pending ...')
     const queue = connectQueue(git)
     const body = req.body
-    queue.add({ git, body }, {
-      delay: 10000,
-      attempts: 5,
-      priority: 1,
-      removeOnComplete: true,
-      backoff: 5000,
-      timeout: 30000
-    }).then(() => {
+    queue.add({ git, body }, gitOptions).then(() => {
       console.log(`add queue ${git} ${new Date()}`)
     })
     return res.send('success')
