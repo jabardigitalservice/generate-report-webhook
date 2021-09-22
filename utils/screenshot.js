@@ -33,10 +33,10 @@ const generateFilePath = () => {
 const screenshot = async (url, git) => {
   const option = options[git]
   let filePath = generateFilePath()
-  const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-web-security'] })
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
   const page = await browser.newPage()
   await page.setViewport({ height: 1280, width: 1080 })
-  await page.goto(url, { waitUntil: 'load' })
+  await page.goto(url, { waitUntil: 'networkidle2' })
   if (await page.$(option.tagUsername) !== null) {
     await page.type(option.tagUsername, account)
     await page.type(option.tagPassword, password)

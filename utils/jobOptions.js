@@ -1,6 +1,6 @@
 const gitOptions = {
   delay: 10000,
-  attempts: 5,
+  attempts: 10,
   priority: 1,
   removeOnComplete: true,
   backoff: 5000,
@@ -9,6 +9,7 @@ const gitOptions = {
 
 const elasticOptions = {
   delay: 10000,
+  attempts: 2,
   priority: 2,
   removeOnComplete: true,
   backoff: 5000,
