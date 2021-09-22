@@ -2,6 +2,14 @@ import moment from 'moment'
 import connectQueue from './connectQueue.js'
 const queue = connectQueue('elastic')
 
+const jobOptions = {
+  delay: 10000,
+  priority: 2,
+  removeOnComplete: true,
+  backoff: 5000,
+  timeout: 10000
+}
+
 const sendBodyIsValid = (payload) => {
   const participants = payload.participants.trimEnd().split(/[ ,]+/)
   delete payload.addition.created_by
@@ -15,12 +23,7 @@ const sendBodyIsValid = (payload) => {
         ...payload.addition,
         isBodyValid: true
       }
-    }, {
-      priority: 3,
-      removeOnComplete: true,
-      backoff: 10000,
-      timeout: 60000
-    })
+    }, jobOptions)
   }
 }
 
@@ -31,12 +34,7 @@ const sendBodyIsNotValid = (payload) => {
       ...payload,
       isBodyValid: false
     }
-  }, {
-    priority: 2,
-    removeOnComplete: true,
-    backoff: 10000,
-    timeout: 60000
-  })
+  }, jobOptions)
 }
 
 export {
