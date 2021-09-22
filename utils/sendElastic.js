@@ -1,14 +1,8 @@
 import moment from 'moment'
 import connectQueue from './connectQueue.js'
-const queue = connectQueue('elastic')
+import { elasticOptions } from './jobOptions.js'
 
-const jobOptions = {
-  delay: 10000,
-  priority: 2,
-  removeOnComplete: true,
-  backoff: 5000,
-  timeout: 10000
-}
+const queue = connectQueue('elastic')
 
 const sendBodyIsValid = (payload) => {
   const participants = payload.participants.trimEnd().split(/[ ,]+/)
@@ -23,7 +17,7 @@ const sendBodyIsValid = (payload) => {
         ...payload.addition,
         isBodyValid: true
       }
-    }, jobOptions)
+    }, elasticOptions)
   }
 }
 
@@ -34,7 +28,7 @@ const sendBodyIsNotValid = (payload) => {
       ...payload,
       isBodyValid: false
     }
-  }, jobOptions)
+  }, elasticOptions)
 }
 
 export {
