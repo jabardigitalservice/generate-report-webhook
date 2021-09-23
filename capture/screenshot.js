@@ -2,20 +2,8 @@
 import puppeteer from 'puppeteer'
 import fs from 'fs'
 import Config from '../config'
+import { tagOptions } from '../options/git'
 const dir = 'tmp'
-
-const options = {
-  github: {
-    tagUsername: 'input[name=login]',
-    tagPassword: 'input[name=password]',
-    tagSubmit: 'input[type=submit]'
-  },
-  gitlab: {
-    tagUsername: '#user_login',
-    tagPassword: '#user_password',
-    tagSubmit: 'input[type=submit]'
-  }
-}
 
 const generateFilePath = () => {
   if (!fs.existsSync(dir)) {
@@ -26,7 +14,7 @@ const generateFilePath = () => {
 }
 
 const screenshot = async (url, git) => {
-  const option = options[git]
+  const option = tagOptions[git]
   let filePath = generateFilePath()
   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-web-security'] })
   const page = await browser.newPage()

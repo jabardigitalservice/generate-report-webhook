@@ -1,7 +1,8 @@
+import regex from '../utils/regex.js'
 import { sendBodyIsNotValid } from './sendElastic.js'
 
 const templateBody = async (done, payload) => {
-  const body = getBodyValid({
+  const body = getBody({
     project: payloadRegex.project.exec(payload.body),
     title: payloadRegex.title.exec(payload.body),
     participants: payloadRegex.participants.exec(payload.body)
@@ -20,7 +21,7 @@ const templateBody = async (done, payload) => {
   return body
 }
 
-const getBodyValid = (body) => {
+const getBody = (body) => {
   let isValidBody = true
   for (const item in body) {
     if (body[item] === null) {
@@ -32,10 +33,6 @@ const getBodyValid = (body) => {
   body.isValidBody = isValidBody
 
   return body
-}
-
-const regex = (string) => {
-  return new RegExp(string, 'i')
 }
 
 const payloadRegex = {
