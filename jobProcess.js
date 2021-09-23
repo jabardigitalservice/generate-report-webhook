@@ -1,7 +1,7 @@
 import connectQueue from './utils/connectQueue.js'
 import payload from './utils/payload.js'
 import clientElastic from './utils/connectElastic.js'
-import gitProcess from './utils/gitProcess.js'
+import gitProcess from './gitProcess.js'
 import delay from './utils/delay.js'
 import captureException from './utils/captureException.js'
 
