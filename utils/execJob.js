@@ -1,6 +1,7 @@
 import sendTelegram from './sendTelegram.js'
 import templateBody from './templateBody.js'
 import delay from './delay.js'
+import captureException from './captureException.js'
 
 const execJob = async (job, done, payload) => {
   try {
@@ -12,6 +13,7 @@ const execJob = async (job, done, payload) => {
   } catch (error) {
     console.log(`failed ${job.data.git} ${new Date()}`)
     console.log(error.message)
+    captureException(error)
     throw error
   }
 }
