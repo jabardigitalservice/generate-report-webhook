@@ -1,9 +1,9 @@
-import sendTelegram from './sendTelegram.js'
-import templateBody from './templateBody.js'
+import sendTelegram from '../send/telegram.js'
+import templateBody from '../template/body.js'
 import delay from './delay.js'
-import captureException from './captureException.js'
+import captureException from '../capture/exception.js'
 
-const execJob = async (job, done, payload) => {
+const gitProcess = async (job, done, payload) => {
   try {
     console.log(`start ${job.data.git} ${new Date()}`)
     await delay()
@@ -18,4 +18,4 @@ const execJob = async (job, done, payload) => {
   }
 }
 
-export default execJob
+export default gitProcess

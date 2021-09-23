@@ -1,11 +1,11 @@
 import regex from '../utils/regex.js'
-import { sendBodyIsNotValid } from './sendElastic.js'
+import { sendBodyIsNotValid } from '../send/elastic.js'
 
 const templateBody = async (done, payload) => {
   const body = getBody({
-    project: payloadRegex.project.exec(payload.body),
-    title: payloadRegex.title.exec(payload.body),
-    participants: payloadRegex.participants.exec(payload.body)
+    project: bodyRegex.project.exec(payload.body),
+    title: bodyRegex.title.exec(payload.body),
+    participants: bodyRegex.participants.exec(payload.body)
   })
 
   delete payload.body
@@ -35,7 +35,7 @@ const getBody = (body) => {
   return body
 }
 
-const payloadRegex = {
+const bodyRegex = {
   project: regex('project: (.+)'),
   title: regex('title: (.+)'),
   participants: regex('participants: (.+)')

@@ -1,7 +1,7 @@
 import connectQueue from './utils/connectQueue.js'
 import payload from './utils/payload.js'
 import clientElastic from './utils/connectElastic.js'
-import execJob from './utils/execJob.js'
+import gitProcess from './utils/gitProcess.js'
 import delay from './utils/delay.js'
 import captureException from './utils/captureException.js'
 
@@ -10,11 +10,11 @@ const gitlab = connectQueue('gitlab')
 const elastic = connectQueue('elastic')
 
 github.process(function (job, done) {
-  execJob(job, done, payload(job.data))
+  gitProcess(job, done, payload(job.data))
 })
 
 gitlab.process(function (job, done) {
-  execJob(job, done, payload(job.data))
+  gitProcess(job, done, payload(job.data))
 })
 
 elastic.process(async function (job, done) {

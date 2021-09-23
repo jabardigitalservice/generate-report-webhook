@@ -1,6 +1,6 @@
 import moment from 'moment'
 import Config from '../config/index.js'
-import connectQueue from './connectQueue.js'
+import connectQueue from '../connect/queue.js'
 import { elasticOptions } from '../options/job.js'
 
 const queue = connectQueue('elastic')
