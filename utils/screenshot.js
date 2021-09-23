@@ -1,13 +1,8 @@
 
 import puppeteer from 'puppeteer'
-import dotEnv from 'dotenv'
 import fs from 'fs'
+import Config from '../config'
 const dir = 'tmp'
-
-dotEnv.config()
-
-const account = process.env.ACCOUNT
-const password = Buffer.from(process.env.PASSWORD, 'base64').toString()
 
 const options = {
   github: {
@@ -38,8 +33,8 @@ const screenshot = async (url, git) => {
   await page.setViewport({ height: 1280, width: 1080 })
   await page.goto(url, { waitUntil: 'load' })
   if (await page.$(option.tagUsername) !== null) {
-    await page.type(option.tagUsername, account)
-    await page.type(option.tagPassword, password)
+    await page.type(option.tagUsername, Config.get('account'))
+    await page.type(option.tagPassword, Config.get('password'))
     await Promise.all([
       page.click(option.tagSubmit),
       page.waitForNavigation({ waitUntil: 'networkidle0' })

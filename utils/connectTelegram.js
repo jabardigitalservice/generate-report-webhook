@@ -1,17 +1,13 @@
-import dotEnv from 'dotenv'
-
 import { TelegramClient } from 'telegram'
 import { StringSession } from 'telegram/sessions/index.js'
 import input from 'input'
-dotEnv.config()
+import Config from '../config'
 
-const apiId = process.env.API_ID
-const apiHash = process.env.API_HASH
 const stringSession = new StringSession('')
 
 const connectTelegram = async () => {
   console.log('Loading interactive example...')
-  const client = new TelegramClient(stringSession, Number(apiId), apiHash, {
+  const client = new TelegramClient(stringSession, Number(Config.get('api.id')), Config.get('api.hash'), {
     connectionRetries: 5
   })
   await client.start({

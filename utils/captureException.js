@@ -1,9 +1,8 @@
 import Raven from 'raven'
-import dotEnv from 'dotenv'
-dotEnv.config()
+import Config from '../config'
 
-Raven.config(process.env.SENTRY_DSN, {
-  environment: process.env.NODE_ENV
+Raven.config(Config.get('sentry.dsn'), {
+  environment: Config.get('node.env')
 }).install()
 
 const captureException = (error) => {

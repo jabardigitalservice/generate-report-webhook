@@ -1,60 +1,43 @@
 import fs from 'fs'
 import request from 'request'
-import dotEnv from 'dotenv'
 import { Api, TelegramClient } from 'telegram'
 import { StringSession } from 'telegram/sessions/index.js'
 import random from 'random-bigint'
 import screenshot from './screenshot.js'
 import { sendBodyIsValid } from './sendElastic.js'
+import Config from '../config/index.js'
+import { messageValid } from './messages.js'
 
-dotEnv.config()
+const CHAT_ID = Number(Config.get('chat_id'))
+const apiTelegram = `https://api.telegram.org/${Config.get('telegram.bot')}`
+const client = new TelegramClient(new StringSession(Config.get('api.session')), Number(Config.get('api.id')), Config.get('api.hash'), {})
 
-const apiId = process.env.API_ID
-const apiHash = process.env.API_HASH
-const apiSession = process.env.API_SESSION
-const stringSession = new StringSession(apiSession)
-
-const TELEGRAM_BOT = process.env.TELEGRAM_BOT
-const CHAT_ID = process.env.CHAT_ID
-const apiTelegram = `https://api.telegram.org/${TELEGRAM_BOT}`
-const client = new TelegramClient(stringSession, Number(apiId), apiHash, {})
-
-const message = (payload) => {
-  return `
-/lapor ${payload.project} | ${payload.title}
-Peserta: ${payload.participants}
-Lampiran: ${payload.url}
-`
-}
-
-const sendMessage = async (payload, replyToMsgId) => {
+const sendMessage = async (message, replyToMsgId) => {
   if (client.disconnected) await client.connect()
   await client.invoke(
     new Api.messages.SendMessage({
-      peer: Number(CHAT_ID),
-      message: message(payload),
+      peer: CHAT_ID,
+      message: message,
       randomId: random(128),
       noWebpage: true,
       replyToMsgId: Number(replyToMsgId)
     })
   )
-  sendBodyIsValid(payload)
 }
 
-const sendMessageWithBot = (payload) => {
+const sendMessageWithBot = (message) => {
   request.post(
     {
       url: apiTelegram + '/sendMessage',
       formData: {
-        chat_id: Number(CHAT_ID),
-        text: message(payload)
+        chat_id: CHAT_ID,
+        text: message
       }
     },
     function cb (err) {
       if (err) {
         return console.error('send message failed:', err)
       }
-      sendBodyIsValid(payload)
     }
   )
 }
@@ -64,7 +47,7 @@ const sendPhoto = (payload) => {
     {
       url: apiTelegram + '/sendPhoto',
       formData: {
-        chat_id: Number(CHAT_ID),
+        chat_id: CHAT_ID,
         photo: {
           value: fs.createReadStream(payload.picture),
           options: {
@@ -81,7 +64,7 @@ const sendPhoto = (payload) => {
       }
       const body = JSON.parse(response.body)
       const { message_id: messageId } = body.result
-      sendMessage(payload, messageId)
+      sendMessage(messageValid(payload), messageId)
     }
   )
 }
@@ -89,8 +72,9 @@ const sendPhoto = (payload) => {
 const sendTelegram = async (git, payload) => {
   try {
     const image = await screenshot(payload.url, git)
-    if (!image) return sendMessageWithBot(payload)
-    sendPhoto(Object.assign(payload, { picture: image }))
+    if (!image) sendMessageWithBot(messageValid(payload))
+    else sendPhoto(Object.assign(payload, { picture: image }))
+    sendBodyIsValid(payload)
     return true
   } catch (error) {
     console.log(error.message)

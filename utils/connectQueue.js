@@ -1,12 +1,13 @@
 import Queue from 'bull'
-import dotEnv from 'dotenv'
-dotEnv.config()
-
-const redisHost = process.env.REDIS_HOST
-const redisPort = process.env.REDIS_PORT
+import Config from '../config'
 
 const connectQueue = (git) => {
-  return new Queue(git, { redis: { host: redisHost, port: redisPort } })
+  return new Queue(git, {
+    redis: {
+      host: Config.get('redis.host'),
+      port: Config.get('redis.port')
+    }
+  })
 }
 
 export default connectQueue
