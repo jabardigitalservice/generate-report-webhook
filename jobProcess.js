@@ -3,6 +3,7 @@ import payload from './utils/payload.js'
 import clientElastic from './utils/connectElastic.js'
 import execJob from './utils/execJob.js'
 import delay from './utils/delay.js'
+import captureException from './utils/captureException.js'
 
 const github = connectQueue('github')
 const gitlab = connectQueue('gitlab')
@@ -23,6 +24,7 @@ elastic.process(async function (job, done) {
     done()
   } catch (error) {
     console.log(error.message)
+    captureException(error)
     throw error
   }
 })
