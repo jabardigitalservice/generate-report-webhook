@@ -17,8 +17,7 @@
     "random-bigint": "0.0.1",
     "raven": "^2.6.4",
     "request": "^2.88.2",
-    "telegram": "^1.8.10",
-    "util": "^0.12.4"
+    "telegram": "^1.8.10"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
