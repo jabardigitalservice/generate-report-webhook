@@ -9,25 +9,20 @@ import { messageValid } from '../template/message.js'
 import sendRequest from './request.js'
 
 const CHAT_ID = Number(Config.get('chat.id'))
-console.log(CHAT_ID);
 const apiTelegram = `https://api.telegram.org/${Config.get('telegram.bot')}`
 const client = new TelegramClient(new StringSession(Config.get('api.session')), Number(Config.get('api.id')), Config.get('api.hash'), {})
 
 const sendMessageWithUser = async (message, replyToMsgId = null) => {
   if (client.disconnected) await client.connect()
-  try {
-    await client.invoke(
-      new Api.messages.SendMessage({
-        peer: CHAT_ID,
-        message: message,
-        randomId: random(128),
-        noWebpage: true,
-        replyToMsgId: replyToMsgId
-      })
-    )
-  } catch (error) {
-    console.log('error with user', error);
-  }
+  await client.invoke(
+    new Api.messages.SendMessage({
+      peer: CHAT_ID,
+      message: message,
+      randomId: random(128),
+      noWebpage: true,
+      replyToMsgId: replyToMsgId
+    })
+  )
 }
 
 const sendMessageWithBoth = async (message) => {
@@ -42,7 +37,7 @@ const sendMessageWithBoth = async (message) => {
 
 const sendPhotoWithBoth = async (picture) => {
   try {
-    const res = await sendRequest({
+    const response = await sendRequest({
       url: apiTelegram + '/sendPhoto',
       formData: {
         chat_id: CHAT_ID,
@@ -55,8 +50,6 @@ const sendPhotoWithBoth = async (picture) => {
         }
       }
     })
-    console.log(res);
-    const response = JSON.parse(res);
     const { message_id: messageId } = response.result
     return messageId
   } catch (error) {

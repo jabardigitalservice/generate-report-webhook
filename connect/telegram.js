@@ -7,7 +7,7 @@ const stringSession = new StringSession('')
 
 const connectTelegram = async () => {
   console.log('Loading interactive example...')
-  const client = new TelegramClient(stringSession, Number(Config.get('api.id')), Config.get('api.hash'), {
+  const client = new TelegramClient(stringSession, Config.get('api.id'), Config.get('api.hash'), {
     connectionRetries: 5
   })
   await client.start({
