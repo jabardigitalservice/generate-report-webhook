@@ -37,28 +37,23 @@ const sendMessageWithBoth = async (message) => {
 }
 
 const sendPhotoWithBoth = async (picture) => {
-  try {
-    const response = await sendRequest({
-      url: apiTelegram + '/sendPhoto',
-      formData: {
-        chat_id: CHAT_ID,
-        photo: {
-          value: fs.createReadStream(picture),
-          options: {
-            filename: picture,
-            contentType: 'image/png'
-          }
+  const response = await sendRequest({
+    url: apiTelegram + '/sendPhoto',
+    formData: {
+      chat_id: CHAT_ID,
+      photo: {
+        value: fs.createReadStream(picture),
+        options: {
+          filename: picture,
+          contentType: 'image/png'
         }
       }
-    })
-    if (response.statusCode !== 200) throw new Error (response.statusMessage)
-    const body = JSON.parse(response.body)
-    const { message_id: messageId } = body.result
-    return messageId
-  } catch (error) {
-    console.log(error.message)
-    throw error
-  }
+    }
+  })
+  if (response.statusCode !== 200) throw new Error (response.statusMessage)
+  const body = JSON.parse(response.body)
+  const { message_id: messageId } = body.result
+  return messageId
 }
 
 const sendTelegram = async (git, payload) => {
