@@ -76,4 +76,9 @@ const sendTelegram = async (git, payload) => {
   }
 }
 
-export default sendTelegram
+export {
+  sendTelegram,
+  sendPhotoWithBoth,
+  sendMessageWithBoth,
+  sendMessageWithUser
+}

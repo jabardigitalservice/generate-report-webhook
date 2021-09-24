@@ -1,7 +1,7 @@
-import sendTelegram from './send/telegram.js'
 import templateBody from './template/body.js'
 import delay from './utils/delay.js'
 import captureException from './capture/exception.js'
+import { sendTelegram } from './send/telegram.js'
 
 const gitProcess = async (job, done, payload) => {
   try {
