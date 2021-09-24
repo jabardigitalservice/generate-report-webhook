@@ -9,6 +9,7 @@ import { messageValid } from '../template/message.js'
 import sendRequest from './request.js'
 
 const CHAT_ID = Number(Config.get('chat.id'))
+console.log(CHAT_ID);
 const apiTelegram = `https://api.telegram.org/${Config.get('telegram.bot')}`
 const client = new TelegramClient(new StringSession(Config.get('api.session')), Number(Config.get('api.id')), Config.get('api.hash'), {})
 

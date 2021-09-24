@@ -8,8 +8,12 @@ const sendRequest = async ({ url, formData }) => {
         formData
       },
       function cb (err, res, body) {
-        if (err && res.statusCode !== 200) reject(err)
-        else resolve(body)
+        if (err) {
+          console.log('error', err);
+          reject(err)
+        } else {
+          resolve(body)
+        }
       }
     )
   })
