@@ -26,13 +26,14 @@ const sendMessageWithUser = async (message, replyToMsgId = null) => {
 }
 
 const sendMessageWithBoth = async (message) => {
-  await sendRequest({
+  const response = await sendRequest({
     url: apiTelegram + '/sendMessage',
     formData: {
       chat_id: CHAT_ID,
       text: message
     }
   })
+  if (response.statusCode !== 200) throw new Error (response.statusMessage)
 }
 
 const sendPhotoWithBoth = async (picture) => {
