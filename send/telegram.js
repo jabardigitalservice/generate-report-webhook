@@ -50,6 +50,7 @@ const sendPhotoWithBoth = async (picture) => {
         }
       }
     })
+    fs.unlinkSync(picture)
     const { message_id: messageId } = response.result
     return messageId
   } catch (error) {
