@@ -1,15 +1,15 @@
 import request from 'request'
 
-const sendRequest = ({ url, formData }) => {
+const sendRequest = async ({ url, formData }) => {
   return new Promise((resolve, reject) => {
     request.post(
       {
         url,
         formData
       },
-      (err, res, body) => {
+      function cb (err, res, body) {
         if (err && res.statusCode !== 200) reject(err)
-        else resolve(JSON.parse(body))
+        else resolve(body)
       }
     )
   })

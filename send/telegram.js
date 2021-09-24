@@ -37,7 +37,7 @@ const sendMessageWithBoth = async (message) => {
 
 const sendPhotoWithBoth = async (picture) => {
   try {
-    const response = await sendRequest({
+    const res = await sendRequest({
       url: apiTelegram + '/sendPhoto',
       formData: {
         chat_id: CHAT_ID,
@@ -50,6 +50,7 @@ const sendPhotoWithBoth = async (picture) => {
         }
       }
     })
+    const response = JSON.parse(res);
     const { message_id: messageId } = response.result
     return messageId
   } catch (error) {
