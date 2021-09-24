@@ -65,10 +65,11 @@ const sendTelegram = async (git, payload) => {
   try {
     const picture = await captureScreenshot(payload.url, git)
     const message = messageValid(payload)
-    sendBodyIsValid(payload)
     if (!picture) return await sendMessageWithBoth(message)
     const messageId = await sendPhotoWithBoth(picture)
-    return await sendMessageWithUser(message, Number(messageId))
+    await sendMessageWithUser(message, Number(messageId))
+    sendBodyIsValid(payload)
+    return true
   } catch (error) {
     console.log(error.message)
     throw error
