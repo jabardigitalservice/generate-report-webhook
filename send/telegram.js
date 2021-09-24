@@ -50,7 +50,7 @@ const sendPhotoWithBoth = async (picture) => {
         }
       }
     })
-    console.log(response);
+    console.log(res);
     const response = JSON.parse(res);
     const { message_id: messageId } = response.result
     return messageId
