@@ -6,7 +6,7 @@ import captureScreenshot from '../capture/screenshot.js'
 import { sendBodyIsValid } from '../send/elastic.js'
 import Config from '../config/index.js'
 import { messageValid } from '../template/message.js'
-import request from 'request'
+import sendRequest from './request.js'
 
 const CHAT_ID = Number(Config.get('chat.id'))
 const apiTelegram = `https://api.telegram.org/${Config.get('telegram.bot')}`
@@ -25,30 +25,22 @@ const sendMessageWithUser = async (message, replyToMsgId = null) => {
   )
 }
 
-const sendMessageWithBoth = (message, payload) => {
-  request.post(
-    {
-      url: apiTelegram + '/sendMessage',
-      formData: {
-        chat_id: CHAT_ID,
-        text: message
-      }
-    },
-    function cb (err) {
-      if (err) {
-        return console.error('send message failed:', err)
-      }
+const sendMessageWithBoth = async (message) => {
+  await sendRequest({
+    url: apiTelegram + '/sendMessage',
+    formData: {
+      chat_id: CHAT_ID,
+      text: message
     }
-  )
-  sendBodyIsValid(payload)
+  })
 }
 
-const sendPhotoWithReplyMessage = (picture, message) => {
-  request.post(
-    {
+const sendPhotoWithBoth = async (picture) => {
+  try {
+    const response = await sendRequest({
       url: apiTelegram + '/sendPhoto',
       formData: {
-        chat_id: Number(CHAT_ID),
+        chat_id: CHAT_ID,
         photo: {
           value: fs.createReadStream(picture),
           options: {
@@ -57,28 +49,25 @@ const sendPhotoWithReplyMessage = (picture, message) => {
           }
         }
       }
-    },
-    function cb (err, response) {
-      fs.unlinkSync(picture)
-      if (err) {
-        return console.error('send photo failed:', err)
-      }
-
-      const body = JSON.parse(response.body)
-      const { message_id: messageId } = body.result
-      sendMessageWithUser(message, Number(messageId))
-    }
-  )
+    })
+    if (response.statusCode !== 200) throw new Error (response.statusMessage)
+    const body = JSON.parse(response.body)
+    const { message_id: messageId } = body.result
+    return messageId
+  } catch (error) {
+    console.log(error.message)
+    throw error
+  }
 }
 
 const sendTelegram = async (git, payload) => {
   try {
     const picture = await captureScreenshot(payload.url, git)
     const message = messageValid(payload)
-    if (!picture) return sendMessageWithBoth(message, payload)
-    sendPhotoWithReplyMessage(picture, message)
     sendBodyIsValid(payload)
-    return true
+    if (!picture) return await sendMessageWithBoth(message)
+    const messageId = await sendPhotoWithBoth(picture)
+    return await sendMessageWithUser(message, Number(messageId))
   } catch (error) {
     console.log(error.message)
     throw error
@@ -87,7 +76,7 @@ const sendTelegram = async (git, payload) => {
 
 export {
   sendTelegram,
-  sendPhotoWithReplyMessage,
+  sendPhotoWithBoth,
   sendMessageWithBoth,
   sendMessageWithUser
 }
