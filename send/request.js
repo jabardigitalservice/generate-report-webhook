@@ -1,18 +1,8 @@
 import request from 'request'
+import util from 'util'
 
-const sendRequest = async ({ url, formData }) => {
-  return new Promise((resolve) => {
-    request.post(
-      {
-        url,
-        formData
-      },
-      function cb (err, res, body) {
-        if (err) throw new Error(err)
-        else resolve(JSON.parse(body))
-      }
-    )
-  })
+const sendRequest = () => {
+  return util.promisify(request)
 }
 
-export default sendRequest
+export default sendRequest()
