@@ -6,6 +6,7 @@ import captureScreenshot from '../capture/screenshot.js'
 import { sendBodyIsValid } from '../send/elastic.js'
 import Config from '../config/index.js'
 import { messageValid } from '../template/message.js'
+import request from 'request'
 
 const CHAT_ID = Number(Config.get('chat.id'))
 const apiTelegram = `https://api.telegram.org/${Config.get('telegram.bot')}`
@@ -84,7 +85,7 @@ const sendTelegram = async (git, payload) => {
 
 export {
   sendTelegram,
-  sendPhotoWithBoth,
+  sendPhotoWithReplyMessage,
   sendMessageWithBoth,
   sendMessageWithUser
 }
