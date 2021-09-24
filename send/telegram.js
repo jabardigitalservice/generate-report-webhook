@@ -52,7 +52,8 @@ const sendPhotoWithBoth = async (picture) => {
         }
       }
     })
-    if (response.statusCode !== 200) console.log(response); throw new Error (response.statusMessage)
+    console.log(response)
+    if (response.statusCode !== 200) throw new Error (response.statusMessage)
     const body = JSON.parse(response.body)
     const { message_id: messageId } = body.result
     return messageId
