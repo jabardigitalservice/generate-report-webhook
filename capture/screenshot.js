@@ -6,10 +6,9 @@ import { tagOption } from '../options/git.js'
 const dir = 'tmp'
 
 const generateFilePath = () => {
-  if (fs.existsSync(dir)) {
-    fs.rmdirSync(dir, { recursive: true })
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir)
   }
-  fs.mkdirSync(dir)
   return `${dir}/${Date.now()}${Math.random()}.png`
 }
 
