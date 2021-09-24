@@ -25,7 +25,7 @@ const sendMessageWithUser = async (message, replyToMsgId = null) => {
   )
 }
 
-const sendMessageWithBoth = async (message) => {
+const sendMessageWithBoth = async (message, payload) => {
   const response = await sendRequest({
     url: apiTelegram + '/sendMessage',
     formData: {
@@ -33,7 +33,9 @@ const sendMessageWithBoth = async (message) => {
       text: message
     }
   })
-  if (response.statusCode !== 200) throw new Error (response.statusMessage)
+  if (response.statusCode !== 200) throw new Error(response.statusMessage)
+  sendBodyIsValid(payload)
+  return true
 }
 
 const sendPhotoWithBoth = async (picture) => {
@@ -50,19 +52,19 @@ const sendPhotoWithBoth = async (picture) => {
       }
     }
   })
-  if (response.statusCode !== 200) throw new Error (response.statusMessage)
+  if (response.statusCode !== 200) throw new Error(response.statusMessage)
   const body = JSON.parse(response.body)
   const { message_id: messageId } = body.result
-  return messageId
+  return Number(messageId)
 }
 
 const sendTelegram = async (git, payload) => {
   try {
     const picture = await captureScreenshot(payload.url, git)
     const message = messageValid(payload)
-    if (!picture) return await sendMessageWithBoth(message)
+    if (!picture) return await sendMessageWithBoth(message, payload)
     const messageId = await sendPhotoWithBoth(picture)
-    await sendMessageWithUser(message, Number(messageId))
+    await sendMessageWithUser(message, messageId)
     sendBodyIsValid(payload)
     return true
   } catch (error) {
