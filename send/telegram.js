@@ -38,6 +38,8 @@ const sendMessageWithBoth = async (message) => {
 const sendPhotoWithBoth = async (picture) => {
     const response = await sendRequest({
       method: 'POST',
+      preambleCRLF: true,
+      postambleCRLF: true,
       url: apiTelegram + '/sendPhoto',
       formData: {
         chat_id: CHAT_ID,
@@ -50,6 +52,7 @@ const sendPhotoWithBoth = async (picture) => {
         }
       }
     })
+    console.log(response);
     if (response.statusCode !== 200) throw new Error (response.statusMessage)
     const body = JSON.parse(response.body)
     const { message_id: messageId } = body.result
