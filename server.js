@@ -1,9 +1,9 @@
 import bodyParser from 'body-parser'
 import express from 'express'
 import verifySecretKey from './utils/verifySecretKey.js'
-import connectQueue from './utils/connectQueue.js'
+import connectQueue from './connect/queue.js'
 import isMerged from './utils/isMerged.js'
-import { gitOptions } from './utils/jobOptions.js'
+import { gitOptions } from './options/job.js'
 import Config from './config/index.js'
 
 const app = express()
@@ -31,7 +31,7 @@ app.post('/webhook/:secret/:git', async (req, res) => {
   }
 })
 
-const PORT = Number(Config.get('port'))
+const PORT = Config.get('port')
 app.listen(PORT, () => {
   console.log(`App listening at http://0.0.0.0:${PORT}`)
 })

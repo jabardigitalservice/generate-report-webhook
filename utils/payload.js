@@ -1,8 +1,8 @@
 import moment from 'moment'
-import { payloadOptions } from '../options/git'
+import { payloadOption } from '../options/git.js'
 
 const payload = (data) => {
-  const property = payloadOptions[data.git]
+  const property = payloadOption[data.git]
   const item = {}
   for (const key in property) {
     let payload = data

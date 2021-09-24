@@ -1,7 +1,7 @@
-import { mergedOptions } from '../options/git'
+import { mergedOption } from '../options/git.js'
 
 const isMerged = (git, body) => {
-  const locations = mergedOptions[git].locations
+  const locations = mergedOption[git].locations
   let state = body
   for (const location of locations) {
     state = state[location]
@@ -12,7 +12,7 @@ const isMerged = (git, body) => {
     conditionAdd = body.pull_request.merged
   }
 
-  return state === mergedOptions[git].condition && conditionAdd
+  return state === mergedOption[git].condition && conditionAdd
 }
 
 export default isMerged

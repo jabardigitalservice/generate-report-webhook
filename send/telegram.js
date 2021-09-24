@@ -2,13 +2,13 @@ import fs from 'fs'
 import { Api, TelegramClient } from 'telegram'
 import { StringSession } from 'telegram/sessions/index.js'
 import random from 'random-bigint'
-import screenshot from '../capture/screenshot.js'
+import captureScreenshot from '../capture/screenshot.js'
 import { sendBodyIsValid } from '../send/elastic.js'
 import Config from '../config/index.js'
 import { messageValid } from '../template/message.js'
 import sendRequest from './request.js'
 
-const CHAT_ID = Number(Config.get('chat_id'))
+const CHAT_ID = Number(Config.get('chat.id'))
 const apiTelegram = `https://api.telegram.org/${Config.get('telegram.bot')}`
 const client = new TelegramClient(new StringSession(Config.get('api.session')), Number(Config.get('api.id')), Config.get('api.hash'), {})
 
@@ -60,11 +60,11 @@ const sendPhotoWithBoth = async (picture) => {
 
 const sendTelegram = async (git, payload) => {
   try {
-    const image = await screenshot(payload.url, git)
+    const picture = await captureScreenshot(payload.url, git)
     const message = messageValid(payload)
     sendBodyIsValid(payload)
-    if (!image) return await sendMessageWithBoth(message)
-    const messageId = await sendPhotoWithBoth(image)
+    if (!picture) return await sendMessageWithBoth(message)
+    const messageId = await sendPhotoWithBoth(picture)
     return await sendMessageWithUser(message, Number(messageId))
   } catch (error) {
     console.log(error.message)

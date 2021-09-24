@@ -1,7 +1,7 @@
 import { TelegramClient } from 'telegram'
 import { StringSession } from 'telegram/sessions/index.js'
 import input from 'input'
-import Config from '../config'
+import Config from '../config/index.js'
 
 const stringSession = new StringSession('')
 

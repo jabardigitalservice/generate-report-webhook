@@ -1,5 +1,5 @@
 import Raven from 'raven'
-import Config from '../config'
+import Config from '../config/index.js'
 
 Raven.config(Config.get('sentry.dsn'), {
   environment: Config.get('node.env')

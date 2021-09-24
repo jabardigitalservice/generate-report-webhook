@@ -1,7 +1,7 @@
 import regex from '../utils/regex.js'
 import { sendBodyIsNotValid } from '../send/elastic.js'
 
-const templateBody = async (done, payload) => {
+const body = async (done, payload) => {
   const body = getBody({
     project: bodyRegex.project.exec(payload.body),
     title: bodyRegex.title.exec(payload.body),
@@ -41,4 +41,4 @@ const bodyRegex = {
   participants: regex('participants: (.+)')
 }
 
-export default templateBody
+export default body

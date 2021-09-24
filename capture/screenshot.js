@@ -1,20 +1,20 @@
 
 import puppeteer from 'puppeteer'
 import fs from 'fs'
-import Config from '../config'
-import { tagOptions } from '../options/git'
+import Config from '../config/index.js'
+import { tagOption } from '../options/git.js'
 const dir = 'tmp'
 
 const generateFilePath = () => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir)
+  if (fs.existsSync(dir)) {
+    fs.rmdirSync(dir, { recursive: true })
   }
-
+  fs.mkdirSync(dir)
   return `${dir}/${Date.now()}${Math.random()}.png`
 }
 
 const screenshot = async (url, git) => {
-  const option = tagOptions[git]
+  const option = tagOption[git]
   let filePath = generateFilePath()
   const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-web-security'] })
   const page = await browser.newPage()

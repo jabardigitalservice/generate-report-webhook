@@ -1,5 +1,5 @@
 import Queue from 'bull'
-import Config from '../config'
+import Config from '../config/index.js'
 
 const connectQueue = (git) => {
   return new Queue(git, {

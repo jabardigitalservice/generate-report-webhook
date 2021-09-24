@@ -9,7 +9,7 @@ const sendRequest = ({ url, formData }) => {
       },
       (err, res, body) => {
         if (err && res.statusCode !== 200) reject(err)
-        resolve(body)
+        resolve(JSON.parse(body))
       }
     )
   })

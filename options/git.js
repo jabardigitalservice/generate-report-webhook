@@ -1,4 +1,4 @@
-const mergedOptions = {
+const mergedOption = {
   github: {
     locations: ['action'],
     condition: 'closed'
@@ -9,7 +9,7 @@ const mergedOptions = {
   }
 }
 
-const payloadOptions = {
+const payloadOption = {
   github: {
     repository_name: ['body', 'pull_request', 'head', 'repo', 'name'],
     repository_url: ['body', 'pull_request', 'head', 'repo', 'html_url'],
@@ -28,7 +28,7 @@ const payloadOptions = {
   }
 }
 
-const tagOptions = {
+const tagOption = {
   github: {
     tagUsername: 'input[name=login]',
     tagPassword: 'input[name=password]',
@@ -42,7 +42,7 @@ const tagOptions = {
 }
 
 export {
-  mergedOptions,
-  payloadOptions,
-  tagOptions
+  mergedOption,
+  payloadOption,
+  tagOption
 }
