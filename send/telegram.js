@@ -15,15 +15,19 @@ const client = new TelegramClient(new StringSession(Config.get('api.session')), 
 
 const sendMessageWithUser = async (message, replyToMsgId = null) => {
   if (client.disconnected) await client.connect()
-  await client.invoke(
-    new Api.messages.SendMessage({
-      peer: CHAT_ID,
-      message: message,
-      randomId: random(128),
-      noWebpage: true,
-      replyToMsgId: replyToMsgId
-    })
-  )
+  try {
+    await client.invoke(
+      new Api.messages.SendMessage({
+        peer: CHAT_ID,
+        message: message,
+        randomId: random(128),
+        noWebpage: true,
+        replyToMsgId: replyToMsgId
+      })
+    )
+  } catch (error) {
+    console.log('error with user', error);
+  }
 }
 
 const sendMessageWithBoth = async (message) => {
