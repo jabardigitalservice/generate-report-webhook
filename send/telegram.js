@@ -50,6 +50,16 @@ const sendPhotoWithBoth = async (picture) => {
         }
       }
     })
+    console.log(response, {
+      chat_id: CHAT_ID,
+      photo: {
+        value: fs.createReadStream(picture),
+        options: {
+          filename: picture,
+          contentType: 'image/png'
+        }
+      }
+    });
     const { message_id: messageId } = response.result
     return messageId
   } catch (error) {
