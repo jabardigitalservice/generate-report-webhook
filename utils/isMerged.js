@@ -1,16 +1,7 @@
-const PULL_REQUEST_MERGED = {
-  github: {
-    locations: ['action'],
-    condition: 'closed'
-  },
-  gitlab: {
-    locations: ['object_attributes', 'action'],
-    condition: 'merge'
-  }
-}
+import { mergedOption } from '../options/git.js'
 
 const isMerged = (git, body) => {
-  const locations = PULL_REQUEST_MERGED[git].locations
+  const locations = mergedOption[git].locations
   let state = body
   for (const location of locations) {
     state = state[location]
@@ -21,7 +12,7 @@ const isMerged = (git, body) => {
     conditionAdd = body.pull_request.merged
   }
 
-  return state === PULL_REQUEST_MERGED[git].condition && conditionAdd
+  return state === mergedOption[git].condition && conditionAdd
 }
 
 export default isMerged

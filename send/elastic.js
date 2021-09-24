@@ -1,15 +1,23 @@
 import moment from 'moment'
-import connectQueue from './connectQueue.js'
-import { elasticOptions } from './jobOptions.js'
+import Config from '../config/index.js'
+import connectQueue from '../connect/queue.js'
+import { elasticOptions } from '../options/job.js'
 
 const queue = connectQueue('elastic')
+
+const now = () => {
+  return moment().format('YYYY.MM.DD')
+}
+const indexElastic = () => {
+  return `${Config.get('app.name')}-${now()}`
+}
 
 const sendBodyIsValid = (payload) => {
   const participants = payload.participants.trimEnd().split(/[ ,]+/)
   delete payload.addition.created_by
   for (const participant of participants) {
     queue.add({
-      index: `${process.env.APP_NAME}-${moment().format('YYYY.MM.DD')}`,
+      index: indexElastic(),
       body: {
         project: payload.project.trimEnd(),
         title: payload.title.trimEnd(),
@@ -23,7 +31,7 @@ const sendBodyIsValid = (payload) => {
 
 const sendBodyIsNotValid = (payload) => {
   queue.add({
-    index: `${process.env.APP_NAME}-${moment().format('YYYY.MM.DD')}`,
+    index: indexElastic(),
     body: {
       ...payload,
       isBodyValid: false

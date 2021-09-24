@@ -1,14 +1,12 @@
-import dotEnv from 'dotenv'
 import { Client } from '@elastic/elasticsearch'
-
-dotEnv.config()
+import Config from '../config/index.js'
 
 const client = new Client({
   cloud: {
-    id: process.env.ELASTIC_CLOUD_ID
+    id: Config.get('elastic.cloud.id')
   },
   auth: {
-    apiKey: process.env.ELASTIC_API_KEY
+    apiKey: Config.get('elastic.api.key')
   }
 })
 
