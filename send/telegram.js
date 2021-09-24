@@ -66,7 +66,7 @@ const sendTelegram = async (git, payload) => {
       await sendMessageWithBoth(message)
     } else {
       const messageId = await sendPhotoWithBoth(image)
-      await sendMessageWithUser(message, messageId)
+      await sendMessageWithUser(message, Number(messageId))
     }
     sendBodyIsValid(payload)
     return true
