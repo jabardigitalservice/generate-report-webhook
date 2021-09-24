@@ -25,7 +25,7 @@ const sendMessageWithUser = async (message, replyToMsgId = null) => {
   )
 }
 
-const sendMessageWithBoth = (message) => {
+const sendMessageWithBoth = (message, payload) => {
   request.post(
     {
       url: apiTelegram + '/sendMessage',
@@ -40,6 +40,7 @@ const sendMessageWithBoth = (message) => {
       }
     }
   )
+  sendBodyIsValid(payload)
 }
 
 const sendPhotoWithReplyMessage = (picture, message) => {
@@ -58,9 +59,11 @@ const sendPhotoWithReplyMessage = (picture, message) => {
       }
     },
     function cb (err, response) {
+      fs.unlinkSync(picture)
       if (err) {
         return console.error('send photo failed:', err)
       }
+
       const body = JSON.parse(response.body)
       const { message_id: messageId } = body.result
       sendMessageWithUser(message, Number(messageId))
@@ -72,10 +75,9 @@ const sendTelegram = async (git, payload) => {
   try {
     const picture = await captureScreenshot(payload.url, git)
     const message = messageValid(payload)
-    sendBodyIsValid(payload)
-    if (!picture) return sendMessageWithBoth(message)
+    if (!picture) return sendMessageWithBoth(message, payload)
     sendPhotoWithReplyMessage(picture, message)
-    fs.unlinkSync(picture)
+    sendBodyIsValid(payload)
     return true
   } catch (error) {
     console.log(error.message)
