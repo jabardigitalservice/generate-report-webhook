@@ -5,7 +5,7 @@ import random from 'random-bigint'
 import Config from '../config/index.js'
 import sendRequest from './request.js'
 
-const apiTelegram = 'https://api.telegram.org'
+const telegramApi = Config.get('telegram.api')
 const client = new TelegramClient(new StringSession(Config.get('api.session')), Number(Config.get('api.id')), Config.get('api.hash'), {})
 
 const sendMessageWithUser = async (chatId, message, replyToMsgId = null) => {
@@ -23,7 +23,7 @@ const sendMessageWithUser = async (chatId, message, replyToMsgId = null) => {
 
 const sendMessageWithBot = async (telegramBot, chatId, message) => {
   const response = await sendRequest({
-    url: `${apiTelegram}/${telegramBot}/sendMessage`,
+    url: `${telegramApi}/${telegramBot}/sendMessage`,
     formData: {
       chat_id: chatId,
       text: message
@@ -35,7 +35,7 @@ const sendMessageWithBot = async (telegramBot, chatId, message) => {
 
 const sendPhotoWithBot = async (telegramBot, chatId, picture) => {
   const response = await sendRequest({
-    url: `${apiTelegram}/${telegramBot}/sendPhoto`,
+    url: `${telegramApi}/${telegramBot}/sendPhoto`,
     formData: {
       chat_id: chatId,
       photo: {
