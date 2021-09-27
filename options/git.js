@@ -28,21 +28,7 @@ const payloadOption = {
   }
 }
 
-const tagOption = {
-  github: {
-    tagUsername: 'input[name=login]',
-    tagPassword: 'input[name=password]',
-    tagSubmit: 'input[type=submit]'
-  },
-  gitlab: {
-    tagUsername: '#user_login',
-    tagPassword: '#user_password',
-    tagSubmit: 'input[type=submit]'
-  }
-}
-
 export {
   mergedOption,
-  payloadOption,
-  tagOption
+  payloadOption
 }
