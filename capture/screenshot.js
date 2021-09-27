@@ -3,7 +3,7 @@ import request from 'request'
 import config from '../config/index.js'
 import fs from 'fs'
 
-const DIR = 'tmp'
+const DIR = config.get('dir')
 
 const generateFilePath = () => {
   if (!fs.existsSync(DIR)) {
