@@ -25,7 +25,7 @@ const sendMessageWithUser = async (message, replyToMsgId = null) => {
   )
 }
 
-const sendMessageWithBoth = async (message, payload) => {
+const sendMessageWithBot = async (message, payload) => {
   const response = await sendRequest({
     url: apiTelegram + '/sendMessage',
     formData: {
@@ -38,7 +38,7 @@ const sendMessageWithBoth = async (message, payload) => {
   return true
 }
 
-const sendPhotoWithBoth = async (picture) => {
+const sendPhotoWithBot = async (picture) => {
   const response = await sendRequest({
     url: apiTelegram + '/sendPhoto',
     formData: {
@@ -58,13 +58,14 @@ const sendPhotoWithBoth = async (picture) => {
   return Number(messageId)
 }
 
-const sendTelegram = async (git, payload) => {
+const sendTelegram = async (payload) => {
   try {
-    const picture = await captureScreenshot(payload.url, git)
+    const picture = await captureScreenshot(payload.url)
     const message = messageValid(payload)
-    if (!picture) return await sendMessageWithBoth(message, payload)
-    const messageId = await sendPhotoWithBoth(picture)
+    if (!picture) return await sendMessageWithBot(message, payload)
+    const messageId = await sendPhotoWithBot(picture)
     await sendMessageWithUser(message, messageId)
+    fs.unlinkSync(picture)
     sendBodyIsValid(payload)
     return true
   } catch (error) {
@@ -75,7 +76,7 @@ const sendTelegram = async (git, payload) => {
 
 export {
   sendTelegram,
-  sendPhotoWithBoth,
-  sendMessageWithBoth,
+  sendPhotoWithBot,
+  sendMessageWithBot,
   sendMessageWithUser
 }
