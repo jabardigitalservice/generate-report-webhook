@@ -1,15 +1,15 @@
-import sendRequest from '../send/request.js'
+import sendRequest from '../utils/request.js'
 import request from 'request'
 import config from '../config/index.js'
 import fs from 'fs'
 
-const dir = 'tmp'
+const DIR = config.get('dir')
 
 const generateFilePath = () => {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir)
+  if (!fs.existsSync(DIR)) {
+    fs.mkdirSync(DIR)
   }
-  return `${dir}/${Date.now()}${Math.random()}.png`
+  return `${DIR}/${Date.now()}${Math.random()}.png`
 }
 
 const screenshot = async (url) => {
