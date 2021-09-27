@@ -1,10 +1,13 @@
 FROM registry.digitalservice.id/proxyjds/library/alpine:edge
 
-RUN apk add nodejs yarn
+RUN apk add nodejs yarn && rm -rf /var/cache/apk/*
 
 WORKDIR /app
 
 COPY package.json ./
+
+ENV PORT 3003
+ENV NODE_ENV production
 
 RUN yarn install
 
@@ -17,7 +20,7 @@ RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
 
 USER pptruser
 
-EXPOSE 3003
+EXPOSE ${PORT}
 
 RUN chmod +x ./docker-config/entrypoint.sh
 
