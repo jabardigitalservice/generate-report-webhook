@@ -12,11 +12,14 @@ const sendTelegram = async (payload) => {
   try {
     const picture = await captureScreenshot(payload.url)
     const message = messageValid(payload)
+    if (!picture) {
+      await sendMessageWithBot(TELEGRAM_BOT, CHAT_ID, message)
+    } else {
+      const messageId = await sendPhotoWithBot(TELEGRAM_BOT, CHAT_ID, picture)
+      await sendMessageWithUser(CHAT_ID, message, messageId)
+      fs.unlinkSync(picture)
+    }
     sendBodyIsValid(payload)
-    if (!picture) return await sendMessageWithBot(TELEGRAM_BOT, CHAT_ID, message)
-    const messageId = await sendPhotoWithBot(TELEGRAM_BOT, CHAT_ID, picture)
-    await sendMessageWithUser(CHAT_ID, message, messageId)
-    fs.unlinkSync(picture)
     return true
   } catch (error) {
     console.log(error.message)
