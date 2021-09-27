@@ -25,7 +25,7 @@ const screenshot = async (url) => {
   return response.body
 }
 
-const downloadImage = async (url) => {
+const downloadImage = (url) => {
   const filePath = generateFilePath()
   return new Promise(resolve => {
     request.head(url, function () {
