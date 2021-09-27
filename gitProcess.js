@@ -1,13 +1,14 @@
 import templateBody from './template/body.js'
 import delay from './utils/delay.js'
 import captureException from './capture/exception.js'
-import { sendTelegram } from './send/telegram.js'
+import sendTelegram from './send/telegram.js'
 
 const gitProcess = async (job, done, payload) => {
   try {
     console.log(`start ${job.data.git} ${new Date()}`)
     await delay()
-    await sendTelegram(await templateBody(done, payload))
+    const body = await templateBody(done, payload)
+    await sendTelegram(body)
     done()
     console.log(`end ${job.data.git} ${new Date()}`)
   } catch (error) {
