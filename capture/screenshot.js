@@ -25,21 +25,20 @@ const screenshot = async (url) => {
   return response.body
 }
 
-const downloadImage = async (url) => {
-  let filePath = generateFilePath()
-  await new Promise((resolve) => {
+const downloadImage = (url) => {
+  const filePath = generateFilePath()
+  return new Promise(resolve => {
     request.head(url, function () {
       request(url)
         .pipe(fs.createWriteStream(filePath))
         .on('close', () => {
-          resolve()
+          resolve(filePath)
         })
         .on('error', () => {
-          filePath = null
+          resolve(null)
         })
     })
   })
-  return filePath
 }
 
 export default screenshot
