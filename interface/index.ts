@@ -4,15 +4,7 @@ export interface bodyInterface {
   participants: string,
   isValidBody: boolean,
   url: string,
-  addition: {
-    repositoryName: string,
-    repositoryUrl: string,
-    platform: string,
-    url: string,
-    body: string,
-    createdBy: string | undefined,
-    createdAt: Date
-  }
+  addition: payloadInterface
 }
 
 export interface payloadInterface {
@@ -20,8 +12,8 @@ export interface payloadInterface {
   repositoryUrl: string,
   platform: string,
   url: string,
-  body: string | undefined,
-  createdBy: string,
+  body?: string,
+  createdBy?: string,
   createdAt: Date
 }
 
