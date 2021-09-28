@@ -8,12 +8,11 @@ const gitOptions = {
 }
 
 const elasticOptions = {
-  delay: 10000,
-  attempts: 2,
-  priority: 2,
+  delay: 30000,
+  priority: 3,
   removeOnComplete: true,
   backoff: 5000,
-  timeout: 10000
+  timeout: 5000
 }
 
 export {

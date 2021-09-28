@@ -30,7 +30,7 @@ const sendBodyIsValid = (payload: bodyInterface): void => {
   }
 }
 
-const sendBodyIsNotValid = (payload: payloadInterface) => {
+const sendBodyIsNotValid = (payload: payloadInterface): void => {
   delete payload.body
   queue.add({
     index: indexElastic(),
