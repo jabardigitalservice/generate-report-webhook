@@ -1,4 +1,4 @@
-import { mergedOptionInterface, payloadOptionInterface } from "../interface"
+import { mergedOptionInterface, payloadOptionInterface } from '../interface'
 
 const mergedOption: mergedOptionInterface = {
   github: {

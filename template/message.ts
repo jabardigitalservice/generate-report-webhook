@@ -1,4 +1,4 @@
-import { bodyInterface } from "../interface"
+import { bodyInterface } from '../interface'
 
 const messageValid = (payload: bodyInterface): string => {
   return `
