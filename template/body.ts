@@ -2,7 +2,7 @@ import regex from '../utils/regex'
 import { sendBodyIsNotValid } from '../send/elastic'
 import { bodyInterface } from '../interface'
 import { DoneCallback } from 'bull'
-import lang from '../lang'
+import lang from '../utils/lang'
 
 const body = async (done: DoneCallback, payload: any): Promise<bodyInterface> => {
   const body = getBody({
