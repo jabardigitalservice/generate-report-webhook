@@ -4,7 +4,7 @@ import captureException from './capture/exception'
 import sendTelegram from './send/telegram'
 import Bull from 'bull'
 
-const gitProcess = async (job: any, done: Bull.DoneCallback, payload: {
+interface payloadInterface {
   repositoryName: string,
   repositoryUrl: string,
   platform: string,
@@ -12,7 +12,9 @@ const gitProcess = async (job: any, done: Bull.DoneCallback, payload: {
   body: string,
   createdBy: string,
   createdAt: Date
-}) => {
+}
+
+const gitProcess = async (job: any, done: Bull.DoneCallback, payload: payloadInterface) => {
   try {
     console.log(`start ${job.data.git} ${new Date()}`)
     await delay()

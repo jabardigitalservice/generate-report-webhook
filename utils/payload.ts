@@ -1,7 +1,7 @@
 import moment from 'moment'
 import { payloadOption } from '../options/git'
 
-const payload = (data: any): {
+interface payloadInterface {
   repositoryName: string,
   repositoryUrl: string,
   platform: string,
@@ -9,7 +9,9 @@ const payload = (data: any): {
   body: string,
   createdBy: string,
   createdAt: Date
-} => {
+}
+
+const payload = (data: any): payloadInterface => {
   const git: string = data.git
   const property:any = payloadOption[git]
   const item: any = {}

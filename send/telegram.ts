@@ -7,8 +7,7 @@ import { sendMessageWithBot, sendMessageWithUser, sendPhotoWithBot } from '../ut
 
 const CHAT_ID = Number(Config.get('chat.id'))
 const TELEGRAM_BOT = Config.get('telegram.bot')
-
-const sendTelegram = async (payload: {
+interface telegram {
   project: string,
   title: string,
   participants: string,
@@ -23,7 +22,9 @@ const sendTelegram = async (payload: {
     createdBy: string,
     createdAt: Date
   }
-}) => {
+}
+
+const sendTelegram = async (payload: telegram) => {
   try {
     const picture = await captureScreenshot(payload.url)
     const message = messageValid(payload)
