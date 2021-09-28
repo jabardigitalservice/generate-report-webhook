@@ -2,10 +2,10 @@ import templateBody from './template/body'
 import delay from './utils/delay'
 import captureException from './capture/exception'
 import sendTelegram from './send/telegram'
-import Bull from 'bull'
+import { DoneCallback } from 'bull'
 import { payloadInterface } from './interface'
 
-const gitProcess = async (job: any, done: Bull.DoneCallback, payload: payloadInterface) => {
+const gitProcess = async (job: any, done: DoneCallback, payload: payloadInterface) => {
   try {
     console.log(`start ${job.data.git} ${new Date()}`)
     await delay()

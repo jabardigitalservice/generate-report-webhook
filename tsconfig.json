@@ -8,5 +8,12 @@
     "esModuleInterop": true,
     "strict": false,
     "declaration": true,
-  }
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "removeComments": true,
+  },
+  "include": [
+    "**/*",
+    "locales/*.json"
+  ]
 }
