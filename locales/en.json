@@ -1,3 +1,4 @@
 {
-  "body_not_valid": "body not valid"
+	"body_not_valid": "body not valid",
+	"credential_failed": "credential failed"
 }
