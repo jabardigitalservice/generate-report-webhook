@@ -7,6 +7,7 @@ WORKDIR /app
 COPY package.json ./
 
 ENV PORT 3003
+ENV NODE_ENV production
 
 RUN yarn install
 

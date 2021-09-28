@@ -1,12 +1,12 @@
-import Raven from 'raven'
-import Config from '../config'
+import raven from 'raven'
+import config from '../config'
 
-Raven.config(Config.get('sentry.dsn'), {
-  environment: Config.get('node.env')
+raven.config(config.get('sentry.dsn'), {
+  environment: config.get('node.env')
 }).install()
 
-const captureException = (error: any): void => {
-  if (error.message !== 'body not valid') Raven.captureException(error)
+const captureException = (error: Error): void => {
+  if (error.message !== 'body not valid') raven.captureException(error)
 }
 
 export default captureException

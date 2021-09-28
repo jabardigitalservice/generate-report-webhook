@@ -1,8 +1,9 @@
 import regex from '../utils/regex'
 import { sendBodyIsNotValid } from '../send/elastic'
 import { bodyInterface } from '../interface'
+import Bull from 'bull'
 
-const body = async (done: any, payload: any): Promise<bodyInterface> => {
+const body = async (done: Bull.DoneCallback, payload: any): Promise<bodyInterface> => {
   const body = getBody({
     project: bodyRegex.project.exec(payload.body),
     title: bodyRegex.title.exec(payload.body),

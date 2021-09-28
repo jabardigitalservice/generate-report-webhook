@@ -25,7 +25,7 @@ app.post('/webhook/:secret/:git', async (req, res) => {
       console.log(`add queue ${git} ${new Date()}`)
     })
     return res.send('success')
-  } catch (error: any) {
+  } catch (error) {
     console.log(error.message)
     return res.status(403).json({ error: error.message })
   }
