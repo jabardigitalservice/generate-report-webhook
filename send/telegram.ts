@@ -1,14 +1,29 @@
 import fs from 'fs'
-import captureScreenshot from '../capture/screenshot.js'
-import { sendBodyIsValid } from '../send/elastic.js'
-import Config from '../config/index.js'
-import { messageValid } from '../template/message.js'
-import { sendMessageWithBot, sendMessageWithUser, sendPhotoWithBot } from '../utils/telegram.js'
+import captureScreenshot from '../capture/screenshot'
+import { sendBodyIsValid } from './elastic'
+import Config from '../config'
+import { messageValid } from '../template/message'
+import { sendMessageWithBot, sendMessageWithUser, sendPhotoWithBot } from '../utils/telegram'
 
 const CHAT_ID = Number(Config.get('chat.id'))
 const TELEGRAM_BOT = Config.get('telegram.bot')
 
-const sendTelegram = async (payload) => {
+const sendTelegram = async (payload: {
+  project: string,
+  title: string,
+  participants: string,
+  isValidBody: boolean,
+  url: string,
+  addition: {
+    repositoryName: string,
+    repositoryUrl: string,
+    platform: string,
+    url: string,
+    body: string,
+    createdBy: string,
+    createdAt: Date
+  }
+}) => {
   try {
     const picture = await captureScreenshot(payload.url)
     const message = messageValid(payload)

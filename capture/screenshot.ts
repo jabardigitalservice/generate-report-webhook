@@ -1,18 +1,18 @@
-import sendRequest from '../utils/request.js'
+import sendRequest from '../utils/request'
 import request from 'request'
-import config from '../config/index.js'
+import config from '../config'
 import fs from 'fs'
 
 const DIR = config.get('dir')
 
-const generateFilePath = () => {
+const generateFilePath = (): string => {
   if (!fs.existsSync(DIR)) {
     fs.mkdirSync(DIR)
   }
   return `${DIR}/${Date.now()}${Math.random()}.png`
 }
 
-const screenshot = async (url) => {
+const screenshot = async (url: string): Promise<string> => {
   const response = await sendRequest({
     url: config.get('screenshot.url'),
     method: 'POST',
@@ -25,21 +25,20 @@ const screenshot = async (url) => {
   return response.body
 }
 
-const downloadImage = async (url) => {
-  let filePath = generateFilePath()
-  await new Promise((resolve) => {
+const downloadImage = async (url: string): Promise<string | null> => {
+  const filePath = generateFilePath()
+  return new Promise(resolve => {
     request.head(url, function () {
       request(url)
         .pipe(fs.createWriteStream(filePath))
         .on('close', () => {
-          resolve()
+          resolve(filePath)
         })
         .on('error', () => {
-          filePath = null
+          resolve(null)
         })
     })
   })
-  return filePath
 }
 
 export default screenshot

@@ -7,11 +7,12 @@ WORKDIR /app
 COPY package.json ./
 
 ENV PORT 3003
-ENV NODE_ENV production
 
 RUN yarn install
 
 COPY . .
+
+RUN yarn run build
 
 RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
     && mkdir -p /app /app/tmp \

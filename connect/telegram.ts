@@ -1,13 +1,13 @@
 import { TelegramClient } from 'telegram'
-import { StringSession } from 'telegram/sessions/index.js'
+import { StringSession } from 'telegram/sessions'
 import input from 'input'
-import Config from '../config/index.js'
+import config from '../config'
 
 const stringSession = new StringSession('')
 
 const connectTelegram = async () => {
   console.log('Loading interactive example...')
-  const client = new TelegramClient(stringSession, Config.get('api.id'), Config.get('api.hash'), {
+  const client = new TelegramClient(stringSession, config.get('api.id'), config.get('api.hash'), {
     connectionRetries: 5
   })
   await client.start({

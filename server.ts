@@ -1,10 +1,10 @@
 import bodyParser from 'body-parser'
 import express from 'express'
-import verifySecretKey from './utils/verifySecretKey.js'
-import connectQueue from './connect/queue.js'
-import isMerged from './utils/isMerged.js'
-import { gitOptions } from './options/job.js'
-import Config from './config/index.js'
+import verifySecretKey from './utils/verifySecretKey'
+import connectQueue from './connect/queue'
+import isMerged from './utils/isMerged'
+import { gitOptions } from './options/job'
+import config from './config'
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -25,13 +25,13 @@ app.post('/webhook/:secret/:git', async (req, res) => {
       console.log(`add queue ${git} ${new Date()}`)
     })
     return res.send('success')
-  } catch (error) {
+  } catch (error: any) {
     console.log(error.message)
     return res.status(403).json({ error: error.message })
   }
 })
 
-const PORT = Config.get('port')
+const PORT = config.get('port')
 app.listen(PORT, () => {
   console.log(`App listening at http://0.0.0.0:${PORT}`)
 })

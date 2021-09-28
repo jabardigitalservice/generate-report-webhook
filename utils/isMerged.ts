@@ -1,6 +1,6 @@
-import { mergedOption } from '../options/git.js'
+import { mergedOption } from '../options/git'
 
-const isMerged = (git, body) => {
+const isMerged = (git: string, body: any) => {
   const locations = mergedOption[git].locations
   let state = body
   for (const location of locations) {

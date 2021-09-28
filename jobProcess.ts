@@ -1,9 +1,9 @@
-import connectQueue from './connect/queue.js'
-import payload from './utils/payload.js'
-import connectElastic from './connect/elastic.js'
-import gitProcess from './gitProcess.js'
-import delay from './utils/delay.js'
-import captureException from './capture/exception.js'
+import connectQueue from './connect/queue'
+import payload from './utils/payload'
+import connectElastic from './connect/elastic'
+import gitProcess from './gitProcess'
+import delay from './utils/delay'
+import captureException from './capture/exception'
 
 const github = connectQueue('github')
 const gitlab = connectQueue('gitlab')

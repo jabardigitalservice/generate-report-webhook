@@ -1,7 +1,22 @@
-import regex from '../utils/regex.js'
-import { sendBodyIsNotValid } from '../send/elastic.js'
+import regex from '../utils/regex'
+import { sendBodyIsNotValid } from '../send/elastic'
 
-const body = async (done, payload) => {
+const body = async (done: any, payload: any): Promise<{
+  project: string,
+  title: string,
+  participants: string,
+  isValidBody: boolean,
+  url: string,
+  addition: {
+    repositoryName: string,
+    repositoryUrl: string,
+    platform: string,
+    url: string,
+    body: string,
+    createdBy: string,
+    createdAt: Date
+  }
+}> => {
   const body = getBody({
     project: bodyRegex.project.exec(payload.body),
     title: bodyRegex.title.exec(payload.body),
@@ -21,7 +36,7 @@ const body = async (done, payload) => {
   return body
 }
 
-const getBody = (body) => {
+const getBody = (body: any) => {
   let isValidBody = true
   for (const item in body) {
     if (body[item] === null) {

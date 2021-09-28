@@ -2,15 +2,17 @@
 
 app=${DOCKER_APP:-app}
 
+cd build
+
 if [ "$app" = "app" ]; then
 
     echo "Running the app..."
-    yarn run start
+    node server.js
 
 elif [ "$app" = "job" ]; then
 
     echo "Running the job..."
-    yarn run job
+    node jobProcess.js
 
 else
     echo "Could not match the container app \"$app\""

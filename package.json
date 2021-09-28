@@ -20,21 +20,30 @@
     "util": "^0.12.4"
   },
   "devDependencies": {
+    "@types/bull": "^3.15.4",
+    "@types/express": "^4.17.13",
+    "@types/node": "^16.10.1",
+    "@types/raven": "^2.5.4",
+    "@types/request": "^2.48.7",
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.3"
   },
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "job": "node jobProcess.js",
-    "job-dev": "nodemon jobProcess.js",
-    "lint": "eslint --fix --ext .js ."
+    "start": "node server.ts",
+    "dev": "nodemon server.ts",
+    "build": "tsc --project ./",
+    "job": "node jobProcess.ts",
+    "job-dev": "nodemon jobProcess.ts",
+    "lint": "eslint --fix --ext .ts ."
   },
   "author": "ayocodingit",
-  "license": "MIT",
-  "type": "module"
+  "license": "MIT"
 }
