@@ -1,4 +1,4 @@
-const delay = async () => {
+const delay = async (): Promise<void> => {
   return new Promise(resolve => setTimeout(resolve, 5000))
 }
 

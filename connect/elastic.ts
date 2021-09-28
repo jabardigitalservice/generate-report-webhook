@@ -1,12 +1,12 @@
 import { Client } from '@elastic/elasticsearch'
-import Config from '../config/index.js'
+import config from '../config'
 
 const client = new Client({
   cloud: {
-    id: Config.get('elastic.cloud.id')
+    id: config.get('elastic.cloud.id')
   },
   auth: {
-    apiKey: Config.get('elastic.api.key')
+    apiKey: config.get('elastic.api.key')
   }
 })
 

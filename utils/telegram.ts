@@ -1,14 +1,14 @@
 import fs from 'fs'
 import { Api, TelegramClient } from 'telegram'
-import { StringSession } from 'telegram/sessions/index.js'
+import { StringSession } from 'telegram/sessions'
 import random from 'random-bigint'
-import Config from '../config/index.js'
-import sendRequest from './request.js'
+import config from '../config'
+import sendRequest from './request'
 
-const telegramApi = Config.get('telegram.api')
-const client = new TelegramClient(new StringSession(Config.get('api.session')), Number(Config.get('api.id')), Config.get('api.hash'), {})
+const telegramApi = config.get('telegram.api')
+const client = new TelegramClient(new StringSession(config.get('api.session')), Number(config.get('api.id')), config.get('api.hash'), {})
 
-const sendMessageWithUser = async (chatId, message, replyToMsgId = null) => {
+const sendMessageWithUser = async (chatId: number, message: string, replyToMsgId: undefined | number = undefined) => {
   if (client.disconnected) await client.connect()
   return client.invoke(
     new Api.messages.SendMessage({
@@ -21,7 +21,7 @@ const sendMessageWithUser = async (chatId, message, replyToMsgId = null) => {
   )
 }
 
-const sendMessageWithBot = async (telegramBot, chatId, message) => {
+const sendMessageWithBot = async (telegramBot: string, chatId: number, message: string): Promise<void> => {
   const response = await sendRequest({
     url: `${telegramApi}/${telegramBot}/sendMessage`,
     formData: {
@@ -30,10 +30,9 @@ const sendMessageWithBot = async (telegramBot, chatId, message) => {
     }
   })
   if (response.statusCode !== 200) throw new Error(response.statusMessage)
-  return true
 }
 
-const sendPhotoWithBot = async (telegramBot, chatId, picture) => {
+const sendPhotoWithBot = async (telegramBot: string, chatId: number, picture: string): Promise<number> => {
   const response = await sendRequest({
     url: `${telegramApi}/${telegramBot}/sendPhoto`,
     formData: {

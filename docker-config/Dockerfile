@@ -13,6 +13,8 @@ RUN yarn install
 
 COPY . .
 
+RUN yarn run build
+
 RUN addgroup -S pptruser && adduser -S -g pptruser pptruser \
     && mkdir -p /app /app/tmp \
     && chown -R pptruser:pptruser /home/pptruser \

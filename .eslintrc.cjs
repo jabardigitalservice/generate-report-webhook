@@ -1,6 +1,5 @@
 module.exports = {
   env: {
-    browser: true,
     commonjs: true,
     es2021: true
   },
@@ -10,6 +9,10 @@ module.exports = {
     SharedArrayBuffer: 'readonly',
     use: true
   },
+  parser: "@typescript-eslint/parser",
+  plugins: [
+    "@typescript-eslint"
+  ],
   parserOptions: {
     ecmaVersion: 2021
   },

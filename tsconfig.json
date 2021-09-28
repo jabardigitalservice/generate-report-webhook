@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "rootDir": "./",
+    "allowJs": true,
+    "outDir": "./build",
+    "esModuleInterop": true,
+    "strict": false,
+    "declaration": true,
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "removeComments": true,
+    "skipLibCheck": true
+  },
+  "include": [
+    "**/*",
+    "locales/*.json"
+  ]
+}

@@ -1,7 +1,10 @@
-import regex from '../utils/regex.js'
-import { sendBodyIsNotValid } from '../send/elastic.js'
+import regex from '../utils/regex'
+import { sendBodyIsNotValid } from '../send/elastic'
+import { bodyInterface } from '../interface'
+import { DoneCallback } from 'bull'
+import lang from '../utils/lang'
 
-const body = async (done, payload) => {
+const body = async (done: DoneCallback, payload: any): Promise<bodyInterface> => {
   const body = getBody({
     project: bodyRegex.project.exec(payload.body),
     title: bodyRegex.title.exec(payload.body),
@@ -13,7 +16,7 @@ const body = async (done, payload) => {
   if (!body.isValidBody) {
     sendBodyIsNotValid(payload)
     done()
-    throw Error('body not valid')
+    throw Error(lang.__('body_not_valid'))
   }
 
   body.addition = payload
@@ -21,7 +24,7 @@ const body = async (done, payload) => {
   return body
 }
 
-const getBody = (body) => {
+const getBody = (body: any) => {
   let isValidBody = true
   for (const item in body) {
     if (body[item] === null) {

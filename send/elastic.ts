@@ -1,20 +1,21 @@
 import moment from 'moment'
-import Config from '../config/index.js'
-import connectQueue from '../connect/queue.js'
-import { elasticOptions } from '../options/job.js'
+import Config from '../config'
+import connectQueue from '../connect/queue'
+import { bodyInterface, payloadInterface } from '../interface'
+import { elasticOptions } from '../options/job'
 
 const queue = connectQueue('elastic')
 
-const now = () => {
+const now = (): string => {
   return moment().format('YYYY.MM.DD')
 }
-const indexElastic = () => {
+const indexElastic = (): string => {
   return `${Config.get('app.name')}-${now()}`
 }
 
-const sendBodyIsValid = (payload) => {
+const sendBodyIsValid = (payload: bodyInterface): void => {
   const participants = payload.participants.trimEnd().split(/[ ,]+/)
-  delete payload.addition.created_by
+  delete payload.addition.createdBy
   for (const participant of participants) {
     queue.add({
       index: indexElastic(),
@@ -29,7 +30,8 @@ const sendBodyIsValid = (payload) => {
   }
 }
 
-const sendBodyIsNotValid = (payload) => {
+const sendBodyIsNotValid = (payload: payloadInterface) => {
+  delete payload.body
   queue.add({
     index: indexElastic(),
     body: {
