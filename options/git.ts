@@ -1,20 +1,4 @@
-interface mergedOptionInterface {
-  [key: string]: {
-    locations: string[],
-    condition: string
-  }
-}
-
-interface payloadOptionInterface {
-  [key: string]: {
-    repositoryName: string[],
-    repositoryUrl: string[],
-    platform: string[],
-    url: string[],
-    body: string[],
-    createdBy: string[],
-  }
-}
+import { mergedOptionInterface, payloadOptionInterface } from "../interface"
 
 const mergedOption: mergedOptionInterface = {
   github: {

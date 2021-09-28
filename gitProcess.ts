@@ -3,16 +3,7 @@ import delay from './utils/delay'
 import captureException from './capture/exception'
 import sendTelegram from './send/telegram'
 import Bull from 'bull'
-
-interface payloadInterface {
-  repositoryName: string,
-  repositoryUrl: string,
-  platform: string,
-  url: string,
-  body: string,
-  createdBy: string,
-  createdAt: Date
-}
+import { payloadInterface } from './interface'
 
 const gitProcess = async (job: any, done: Bull.DoneCallback, payload: payloadInterface) => {
   try {

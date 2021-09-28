@@ -1,24 +1,8 @@
 import regex from '../utils/regex'
 import { sendBodyIsNotValid } from '../send/elastic'
+import { bodyInterface } from '../interface'
 
-interface bodyValidInterface {
-  project: string,
-  title: string,
-  participants: string,
-  isValidBody: boolean,
-  url: string,
-  addition: {
-    repositoryName: string,
-    repositoryUrl: string,
-    platform: string,
-    url: string,
-    body: string,
-    createdBy: string,
-    createdAt: Date
-  }
-}
-
-const body = async (done: any, payload: any): Promise<bodyValidInterface> => {
+const body = async (done: any, payload: any): Promise<bodyInterface> => {
   const body = getBody({
     project: bodyRegex.project.exec(payload.body),
     title: bodyRegex.title.exec(payload.body),

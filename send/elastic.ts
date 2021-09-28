@@ -1,6 +1,7 @@
 import moment from 'moment'
 import Config from '../config'
 import connectQueue from '../connect/queue'
+import { bodyInterface, payloadInterface } from '../interface'
 import { elasticOptions } from '../options/job'
 
 const queue = connectQueue('elastic')
@@ -11,34 +12,8 @@ const now = (): string => {
 const indexElastic = (): string => {
   return `${Config.get('app.name')}-${now()}`
 }
-interface bodyValidInterface {
-  project: string,
-  title: string,
-  participants: string,
-  isValidBody: boolean,
-  url: string,
-  addition: {
-    repositoryName: string,
-    repositoryUrl: string,
-    platform: string,
-    url: string,
-    body: string,
-    createdBy: string | undefined,
-    createdAt: Date
-  }
-}
 
-interface bodyNotValidInterface {
-  repositoryName: string,
-  repositoryUrl: string,
-  platform: string,
-  url: string,
-  body: string | undefined,
-  createdBy: string,
-  createdAt: Date
-}
-
-const sendBodyIsValid = (payload: bodyValidInterface): void => {
+const sendBodyIsValid = (payload: bodyInterface): void => {
   const participants = payload.participants.trimEnd().split(/[ ,]+/)
   delete payload.addition.createdBy
   for (const participant of participants) {
@@ -55,7 +30,7 @@ const sendBodyIsValid = (payload: bodyValidInterface): void => {
   }
 }
 
-const sendBodyIsNotValid = (payload: bodyNotValidInterface) => {
+const sendBodyIsNotValid = (payload: payloadInterface) => {
   delete payload.body
   queue.add({
     index: indexElastic(),
