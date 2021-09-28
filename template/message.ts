@@ -1,4 +1,4 @@
-interface bodyValid {
+interface bodyValidInterface {
   project: string,
   title: string,
   participants: string,
@@ -15,7 +15,7 @@ interface bodyValid {
   }
 }
 
-const messageValid = (payload: bodyValid) => {
+const messageValid = (payload: bodyValidInterface) => {
   return `
 /lapor ${payload.project} | ${payload.title}
 Peserta: ${payload.participants}

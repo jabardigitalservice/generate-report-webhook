@@ -11,7 +11,7 @@ const now = (): string => {
 const indexElastic = (): string => {
   return `${Config.get('app.name')}-${now()}`
 }
-interface bodyValid {
+interface bodyValidInterface {
   project: string,
   title: string,
   participants: string,
@@ -28,7 +28,7 @@ interface bodyValid {
   }
 }
 
-interface bodyNotValid {
+interface bodyNotValidInterface {
   repositoryName: string,
   repositoryUrl: string,
   platform: string,
@@ -38,7 +38,7 @@ interface bodyNotValid {
   createdAt: Date
 }
 
-const sendBodyIsValid = (payload: bodyValid): void => {
+const sendBodyIsValid = (payload: bodyValidInterface): void => {
   const participants = payload.participants.trimEnd().split(/[ ,]+/)
   delete payload.addition.createdBy
   for (const participant of participants) {
@@ -55,7 +55,7 @@ const sendBodyIsValid = (payload: bodyValid): void => {
   }
 }
 
-const sendBodyIsNotValid = (payload: bodyNotValid) => {
+const sendBodyIsNotValid = (payload: bodyNotValidInterface) => {
   delete payload.body
   queue.add({
     index: indexElastic(),
