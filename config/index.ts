@@ -1,7 +1,7 @@
-import Config from 'env-dot-prop'
+import config from 'env-dot-prop'
 import dotEnv from 'dotenv'
 dotEnv.config()
 
-Config.set('dir', 'tmp')
+config.set('dir', 'tmp')
 
-export default Config
+export default config
