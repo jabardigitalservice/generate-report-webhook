@@ -1,5 +1,5 @@
 import moment from 'moment'
-import Config from '../config'
+import config from '../config'
 import connectQueue from '../connect/queue'
 import { bodyInterface, payloadInterface } from '../interface'
 import { elasticOptions } from '../options/job'
@@ -10,7 +10,7 @@ const now = (): string => {
   return moment().format('YYYY.MM.DD')
 }
 const indexElastic = (): string => {
-  return `${Config.get('app.name')}-${now()}`
+  return `${config.get('app.name')}-${now()}`
 }
 
 const sendBodyIsValid = (payload: bodyInterface): void => {
