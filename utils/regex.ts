@@ -1,4 +1,4 @@
-const regex = (string: string) => {
+const regex = (string: string): RegExp => {
   return new RegExp(string, 'i')
 }
 
