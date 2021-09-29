@@ -1,12 +1,3 @@
-export interface bodyInterface {
-  project: string,
-  title: string,
-  participants: string,
-  isValidBody: boolean,
-  url: string,
-  addition: payloadInterface
-}
-
 export interface payloadInterface {
   repositoryName: string,
   repositoryUrl: string,
@@ -15,6 +6,14 @@ export interface payloadInterface {
   body?: string,
   createdBy?: string,
   createdAt: Date
+}
+export interface bodyInterface {
+  project: string,
+  title: string,
+  participants: string,
+  isValidBody: boolean,
+  url: string,
+  addition: payloadInterface
 }
 
 export interface mergedOptionInterface {
