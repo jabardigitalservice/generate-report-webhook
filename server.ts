@@ -16,7 +16,7 @@ app.get('/', (req, res) => {
 
 app.post('/webhook/:secret/:git', async (req, res) => {
   try {
-    await verifySecretKey(req.params.secret)
+    verifySecretKey(req.params.secret)
     const git = req.params.git
     if (!isMerged(git, req.body)) return res.send('pending ...')
     const queue = connectQueue(git)

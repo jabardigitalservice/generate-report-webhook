@@ -8,8 +8,8 @@ import { payloadInterface } from './interface'
 const gitProcess = async (job: any, done: DoneCallback, payload: payloadInterface) => {
   try {
     console.log(`start ${job.data.git} ${new Date()}`)
-    await delay()
-    const body = await templateBody(done, payload)
+    delay()
+    const body = templateBody(done, payload)
     await sendTelegram(body)
     done()
     console.log(`end ${job.data.git} ${new Date()}`)

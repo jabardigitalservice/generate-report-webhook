@@ -1,7 +1,7 @@
 import config from '../config'
 import lang from './lang'
 
-const verifySecretKey = async (secret: string): Promise<void> => {
+const verifySecretKey = (secret: string): void => {
   if (secret !== config.get('secret.key')) throw Error(lang.__('credential_failed'))
 }
 

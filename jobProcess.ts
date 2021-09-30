@@ -19,7 +19,7 @@ gitlab.process(function (job, done) {
 
 elastic.process(async function (job, done) {
   try {
-    await delay()
+    delay()
     await connectElastic.index(job.data)
     done()
   } catch (error) {
