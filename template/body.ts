@@ -4,7 +4,7 @@ import { bodyInterface } from '../interface'
 import { DoneCallback } from 'bull'
 import lang from '../utils/lang'
 
-const body = async (done: DoneCallback, payload: any): Promise<bodyInterface> => {
+const body = (done: DoneCallback, payload: any): bodyInterface => {
   const body = getBody({
     project: bodyRegex.project.exec(payload.body),
     title: bodyRegex.title.exec(payload.body),

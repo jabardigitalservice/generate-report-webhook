@@ -9,7 +9,7 @@ import { bodyInterface } from '../interface'
 const CHAT_ID = Number(config.get('chat.id'))
 const TELEGRAM_BOT = config.get('telegram.bot')
 
-const sendTelegram = async (payload: bodyInterface) => {
+const sendTelegram = async (payload: bodyInterface): Promise<void> => {
   try {
     const picture = await captureScreenshot(payload.url)
     const message = messageValid(payload)
@@ -21,7 +21,6 @@ const sendTelegram = async (payload: bodyInterface) => {
       fs.unlinkSync(picture)
     }
     sendBodyIsValid(payload)
-    return true
   } catch (error) {
     console.log(error.message)
     throw error
