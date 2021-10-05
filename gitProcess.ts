@@ -17,7 +17,7 @@ const gitProcess = async (job: any, done: DoneCallback, payload: payloadInterfac
     console.log(`failed ${job.data.git} ${new Date()}`)
     console.log(error.message)
     captureException(error)
-    throw error
+    done(error)
   }
 }
 

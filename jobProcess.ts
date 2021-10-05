@@ -25,6 +25,6 @@ elastic.process(async function (job, done) {
   } catch (error) {
     console.log(error.message)
     captureException(error)
-    throw error
+    done(error)
   }
 })
