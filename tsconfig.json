@@ -9,12 +9,11 @@
     "strict": false,
     "declaration": true,
     "resolveJsonModule": true,
-    "baseUrl": "./",
     "removeComments": true,
     "skipLibCheck": true
   },
   "include": [
-    "**/*",
-    "locales/*.json"
+    "./**/*",
+    "./locales/*.json"
   ]
 }

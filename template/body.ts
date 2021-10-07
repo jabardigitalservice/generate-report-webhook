@@ -3,8 +3,9 @@ import { sendBodyIsNotValid } from '../send/elastic'
 import { bodyInterface } from '../interface'
 import { DoneCallback } from 'bull'
 import lang from '../utils/lang'
+import participants from './participants'
 
-const body = (done: DoneCallback, payload: any): bodyInterface => {
+const body = async (done: DoneCallback, payload: any): Promise<bodyInterface> => {
   const body = getBody({
     project: bodyRegex.project.exec(payload.body),
     title: bodyRegex.title.exec(payload.body),
@@ -18,6 +19,8 @@ const body = (done: DoneCallback, payload: any): bodyInterface => {
     done()
     throw Error(lang.__('body_not_valid'))
   }
+  body.participants = await participants(body.participants)
+  console.log(body.participants)
 
   body.addition = payload
   body.url = payload.url

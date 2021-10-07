@@ -9,7 +9,7 @@ const gitProcess = async (job: any, done: DoneCallback, payload: payloadInterfac
   try {
     console.log(`start ${job.data.git} ${new Date()}`)
     delay()
-    const body = templateBody(done, payload)
+    const body = await templateBody(done, payload)
     await sendTelegram(body)
     done()
     console.log(`end ${job.data.git} ${new Date()}`)
