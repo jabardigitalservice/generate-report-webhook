@@ -13,19 +13,20 @@ const participantsMapping = (rows: rows[], users: string[]): string => {
   let result = ''
   for (const user of users) {
     let isFound = false
-    const rowSearch = searchRowsParticipants(rows, isFound, user, result)
+    const rowSearch = searchRowsParticipants(rows, isFound, user)
     if (!rowSearch.isFound) result += `${user} `
     else result += rowSearch.result
   }
   return result
 }
 
-const searchRowsParticipants = (rows: rows[], isFound: boolean, user: string, result: string): {
+const searchRowsParticipants = (rows: rows[], isFound: boolean, user: string): {
   result: string, isFound: boolean
 } => {
+  let result = ''
   for (const row of rows) {
     if (row.git === user) {
-      result += `${row.telegram} `
+      result = `${row.telegram} `
       isFound = true
       break
     }
