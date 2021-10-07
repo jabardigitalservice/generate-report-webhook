@@ -38,10 +38,10 @@
     "typescript": "^4.4.3"
   },
   "scripts": {
-    "start": "node server.ts",
+    "start": "node build/server.js",
     "dev": "nodemon server.ts",
     "build": "tsc --project ./",
-    "job": "node jobProcess.ts",
+    "job": "node build/jobProcess.js",
     "job-dev": "nodemon jobProcess.ts",
     "lint": "eslint --fix --ext .ts ."
   },
