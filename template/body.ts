@@ -20,7 +20,6 @@ const body = async (done: DoneCallback, payload: any): Promise<bodyInterface> =>
     throw Error(lang.__('body_not_valid'))
   }
   body.participants = await participants(body.participants)
-  console.log(body.participants)
 
   body.addition = payload
   body.url = payload.url
