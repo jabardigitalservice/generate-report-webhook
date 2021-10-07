@@ -12,7 +12,7 @@ interface rows {
 const participantsMapping = (rows: rows[], users: string[]): string => {
   let result = ''
   for (const user of users) {
-    let isFound = false
+    const isFound = false
     const rowSearch = searchRowsParticipants(rows, isFound, user)
     if (!rowSearch.isFound) result += `${user} `
     else result += rowSearch.result
