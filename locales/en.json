@@ -1,4 +1,5 @@
 {
 	"body_not_valid": "body not valid",
-	"credential_failed": "credential failed"
+	"credential_failed": "credential failed",
+	"excel_json_url_failed": "excel json url failed"
 }
