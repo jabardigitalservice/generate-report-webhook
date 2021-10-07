@@ -7,7 +7,7 @@ interface rows {
   telegram: string
 }
 
-export default async (participants: string | null = null) => {
+export default async (participants: string) => {
   const users: string[] = participants.trimEnd().split(/[ ,]+/)
 
   const response = await request({
@@ -18,7 +18,7 @@ export default async (participants: string | null = null) => {
   const body = JSON.parse(response.body)
   const rows: rows[] = body.rows
 
-  let result: string
+  let result = ''
   for (const user of users) {
     let isFound = false
     for (const row of rows) {
