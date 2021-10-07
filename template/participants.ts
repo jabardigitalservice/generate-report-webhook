@@ -7,17 +7,7 @@ interface rows {
   telegram: string
 }
 
-export default async (participants: string) => {
-  const users: string[] = participants.trimEnd().split(/[ ,]+/)
-
-  const response = await request({
-    url: `${config.get('excel.json.url')}`
-  })
-
-  if (response.statusCode !== 200) return participants
-  const body = JSON.parse(response.body)
-  const rows: rows[] = body.rows
-
+const participantsMapping = (rows: rows[], users: string[]): string => {
   let result = ''
   for (const user of users) {
     let isFound = false
@@ -30,6 +20,19 @@ export default async (participants: string) => {
     }
     if (!isFound) result += `${user} `
   }
-
   return result
+}
+
+export default async (participants: string) => {
+  const users: string[] = participants.trimEnd().split(/[ ,]+/)
+
+  const response = await request({
+    url: `${config.get('excel.json.url')}`
+  })
+
+  if (response.statusCode !== 200) return participants
+  const body = JSON.parse(response.body)
+  const rows: rows[] = body.rows
+
+  return participantsMapping(rows, users)
 }
