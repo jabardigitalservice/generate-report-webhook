@@ -45,7 +45,7 @@ export default async (participants: string) => {
   })
 
   if (response.statusCode !== 200) {
-    captureException(new Error(lang.__('excel_json_url_failed')))
+    captureException(new Error(response.statusMessage))
     return participants
   }
   const body = JSON.parse(response.body)
