@@ -13,8 +13,8 @@ const elasticOptions = {
   priority: 3,
   removeOnComplete: true,
   removeOnFail: true,
-  backoff: 5000,
-  timeout: 5000
+  backoff: 20000,
+  timeout: 10000
 }
 
 export {
