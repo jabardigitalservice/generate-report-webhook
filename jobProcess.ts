@@ -12,12 +12,15 @@ git.process(async (job, done) => {
   const data = payload(job.data)
   try {
     const body = await templateBody(data)
+    console.log('start');
     sendTelegram(body)
       .then(() => done())
       .catch(error => {
+        console.log('error');
         captureException(error)
         done(error)
       })
+      .finally(() => console.log('end'))
   } catch (error) {
     console.log(error.message)
     sendBodyIsNotValid(data)

@@ -2,7 +2,7 @@
   "name": "webhook-git-generate-report-telegram-bot",
   "version": "1.0.0",
   "description": "Webhook Git Generate Report Telegram Bot",
-  "main": "server.js",
+  "main": "server.ts",
   "dependencies": {
     "@elastic/elasticsearch": "^7.14.1",
     "body-parser": "^1.19.0",
@@ -40,7 +40,7 @@
   "scripts": {
     "start": "node build/server.js",
     "dev": "nodemon server.ts",
-    "build": "tsc --project ./",
+    "build": "rm -rf build && tsc --project ./",
     "job": "node build/jobProcess.js",
     "job-dev": "nodemon jobProcess.ts",
     "lint": "eslint --fix --ext .ts ."

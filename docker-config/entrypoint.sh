@@ -2,17 +2,15 @@
 
 app=${DOCKER_APP:-app}
 
-cd build
-
 if [ "$app" = "app" ]; then
 
     echo "Running the app..."
-    node server.js
+    npm run start
 
 elif [ "$app" = "job" ]; then
 
     echo "Running the job..."
-    node jobProcess.js
+    npm run job
 
 else
     echo "Could not match the container app \"$app\""
