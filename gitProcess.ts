@@ -1,5 +1,4 @@
 import templateBody from './template/body'
-import delay from './utils/delay'
 import captureException from './capture/exception'
 import sendTelegram from './send/telegram'
 import { DoneCallback } from 'bull'
