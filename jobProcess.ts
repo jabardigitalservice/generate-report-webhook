@@ -5,16 +5,10 @@ import gitProcess from './gitProcess'
 import delay from './utils/delay'
 import captureException from './capture/exception'
 
-const github = connectQueue('github')
-const gitlab = connectQueue('gitlab')
+const git = connectQueue('git')
 const elastic = connectQueue('elastic')
 
-github.process(function (job, done) {
-  delay()
-  gitProcess(job, done, payload(job.data))
-})
-
-gitlab.process(function (job, done) {
+git.process(function (job, done) {
   delay()
   gitProcess(job, done, payload(job.data))
 })
