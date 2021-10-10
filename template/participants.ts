@@ -1,6 +1,5 @@
 import captureException from '../capture/exception'
 import config from '../config'
-import lang from '../utils/lang'
 import request from '../utils/request'
 
 interface rows {
