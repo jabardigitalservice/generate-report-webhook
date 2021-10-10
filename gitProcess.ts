@@ -8,7 +8,6 @@ import { sendBodyIsNotValid } from './send/elastic'
 
 const gitProcess = async (job: any, done: DoneCallback, payload: payloadInterface) => {
   try {
-    delay()
     const body = await templateBody(payload)
     console.log(`start ${job.data.git} ${new Date()}`)
     sendTelegram(body)

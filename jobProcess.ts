@@ -10,10 +10,12 @@ const gitlab = connectQueue('gitlab')
 const elastic = connectQueue('elastic')
 
 github.process(function (job, done) {
+  delay()
   gitProcess(job, done, payload(job.data))
 })
 
 gitlab.process(function (job, done) {
+  delay()
   gitProcess(job, done, payload(job.data))
 })
 
