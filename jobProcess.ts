@@ -1,19 +1,31 @@
-import connectQueue from './connect/queue'
+import { git, elastic } from './connect/queue'
 import payload from './utils/payload'
 import connectElastic from './connect/elastic'
-import gitProcess from './gitProcess'
 import delay from './utils/delay'
+import templateBody from './template/body'
 import captureException from './capture/exception'
+import sendTelegram from './send/telegram'
+import { sendBodyIsNotValid } from './send/elastic'
 
-const git = connectQueue('git')
-const elastic = connectQueue('elastic')
-
-git.process(function (job, done) {
+git.process(async (job, done) => {
   delay()
-  gitProcess(job, done, payload(job.data))
+  const data = payload(job.data)
+  try {
+    const body = await templateBody(data)
+    sendTelegram(body)
+      .then(() => done())
+      .catch(error => {
+        captureException(error)
+        done(error)
+      })
+  } catch (error) {
+    console.log(error.message)
+    sendBodyIsNotValid(data)
+    done()
+  }
 })
 
-elastic.process(async function (job, done) {
+elastic.process(function (job, done) {
   delay()
   connectElastic.index(job.data)
     .then(() => done())
