@@ -5,6 +5,7 @@ import config from '../config'
 import { formatByCreated, formatByReview } from '../template/message'
 import { sendMessageWithBot, sendMessageWithUser, sendPhotoWithBot } from '../utils/telegram'
 import { bodyInterface } from '../interface'
+import delay from '../utils/delay'
 
 const CHAT_ID = Number(config.get('chat.id'))
 const TELEGRAM_BOT = config.get('telegram.bot')
@@ -20,6 +21,7 @@ const sendTelegram = async (payload: bodyInterface): Promise<void> => {
     } else {
       const messageId = await sendPhotoWithBot(TELEGRAM_BOT, CHAT_ID, picture)
       sendMessageWithUser(CHAT_ID, messageByCreated, messageId)
+      delay()
       sendMessageWithUser(CHAT_ID, messageByReview, messageId)
       fs.unlinkSync(picture)
     }
