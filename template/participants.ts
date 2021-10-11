@@ -8,13 +8,13 @@ interface rows {
   telegram: string
 }
 
-const participantsMapping = (rows: rows[], users: string[]): string => {
-  let result = ''
+const participantsMapping = (rows: rows[], users: string[]): string[] => {
+  let result = []
   for (const user of users) {
     const isFound = false
     const rowSearch = searchRowsParticipants(rows, isFound, user)
-    if (!rowSearch.isFound) result += `${user} `
-    else result += rowSearch.result
+    if (!rowSearch.isFound) result.push(user)
+    else result.push(rowSearch.result)
   }
   return result
 }
@@ -22,10 +22,10 @@ const participantsMapping = (rows: rows[], users: string[]): string => {
 const searchRowsParticipants = (rows: rows[], isFound: boolean, user: string): {
   result: string, isFound: boolean
 } => {
-  let result = ''
+  let result = user
   for (const row of rows) {
     if (row.git === user) {
-      result = `${row.telegram} `
+      result = row.telegram
       isFound = true
       break
     }
@@ -45,7 +45,7 @@ export default async (participants: string) => {
 
   if (response.statusCode !== 200) {
     captureException(new Error(response.statusMessage))
-    return participants
+    return users
   }
   const body = JSON.parse(response.body)
   const rows: rows[] = body.rows
