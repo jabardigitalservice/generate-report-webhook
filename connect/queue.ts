@@ -10,4 +10,6 @@ const connectQueue = (git: string) => {
   })
 }
 
-export default connectQueue
+export const git = connectQueue('git')
+
+export const elastic = connectQueue('elastic')

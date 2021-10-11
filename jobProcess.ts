@@ -1,30 +1,36 @@
-import connectQueue from './connect/queue'
+import { git, elastic } from './connect/queue'
 import payload from './utils/payload'
 import connectElastic from './connect/elastic'
-import gitProcess from './gitProcess'
 import delay from './utils/delay'
+import templateBody from './template/body'
 import captureException from './capture/exception'
+import sendTelegram from './send/telegram'
+import { sendBodyIsNotValid } from './send/elastic'
 
-const github = connectQueue('github')
-const gitlab = connectQueue('gitlab')
-const elastic = connectQueue('elastic')
-
-github.process(function (job, done) {
-  gitProcess(job, done, payload(job.data))
-})
-
-gitlab.process(function (job, done) {
-  gitProcess(job, done, payload(job.data))
-})
-
-elastic.process(async function (job, done) {
+git.process(async (job, done) => {
+  delay()
+  const data = payload(job.data)
   try {
-    delay()
-    await connectElastic.index(job.data)
-    done()
+    const body = await templateBody(data)
+    console.log('start');
+    sendTelegram(body)
+      .then(() => done())
+      .catch(error => {
+        console.log('error');
+        captureException(error)
+        done(error)
+      })
+      .finally(() => console.log('end'))
   } catch (error) {
     console.log(error.message)
-    captureException(error)
-    done(error)
+    sendBodyIsNotValid(data)
+    done()
   }
+})
+
+elastic.process(function (job, done) {
+  delay()
+  connectElastic.index(job.data)
+    .then(() => done())
+    .catch(error => captureException(error))
 })

@@ -3,7 +3,6 @@ import request from 'request'
 import config from '../config'
 import fs from 'fs'
 import captureException from './exception'
-import lang from '../utils/lang'
 
 const DIR = config.get('dir')
 
@@ -26,8 +25,7 @@ const screenshot = async (url: string): Promise<string | null> => {
     captureException(new Error(response.statusMessage))
     return null
   }
-  if (response.body) response.body = await downloadImage(response.body)
-  return response.body
+  if (response.body) return await downloadImage(response.body)
 }
 
 const downloadImage = async (url: string): Promise<string | null> => {

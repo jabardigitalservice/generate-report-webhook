@@ -3,17 +3,16 @@
     "target": "es6",
     "module": "commonjs",
     "rootDir": "./",
-    "allowJs": true,
     "outDir": "./build",
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "strict": false,
     "declaration": true,
-    "resolveJsonModule": true,
     "removeComments": true,
     "skipLibCheck": true
   },
   "include": [
-    "./**/*",
+    "./**/*.ts",
     "./locales/*.json"
   ]
 }

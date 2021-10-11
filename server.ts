@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser'
 import express from 'express'
 import verifySecretKey from './utils/verifySecretKey'
-import connectQueue from './connect/queue'
+import { git as gitConnect } from './connect/queue'
 import isMerged from './utils/isMerged'
 import { gitOptions } from './options/job'
 import config from './config'
@@ -10,20 +10,13 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-app.get('/', (req, res) => {
-  res.sendStatus(404)
-})
-
 app.post('/webhook/:secret/:git', async (req, res) => {
   try {
     verifySecretKey(req.params.secret)
     const git = req.params.git
-    if (!isMerged(git, req.body)) return res.send('pending ...')
-    const queue = connectQueue(git)
     const body = req.body
-    queue.add({ git, body }, gitOptions).then(() => {
-      console.log(`add queue ${git} ${new Date()}`)
-    })
+    if (!isMerged(git, body)) return res.send('pending ...')
+    gitConnect.add({ git, body }, gitOptions).then(() => console.log('add git queue'))
     return res.send('success')
   } catch (error) {
     console.log(error.message)

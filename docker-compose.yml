@@ -19,6 +19,7 @@ services:
       - .env
     environment:
       REDIS_HOST: redis
+      DOCKER_APP: app
     ports:
       - "${PORT}:${PORT}"
     depends_on:
