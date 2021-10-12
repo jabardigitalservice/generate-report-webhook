@@ -10,7 +10,7 @@ export interface payloadInterface {
 export interface bodyInterface {
   project: string,
   title: string,
-  participants: string,
+  participants: string[],
   isValidBody: boolean,
   url: string,
   addition: payloadInterface

@@ -12,7 +12,7 @@ const indexElastic = (): string => {
 }
 
 const sendBodyIsValid = (payload: bodyInterface): void => {
-  const participants = payload.participants.trimEnd().split(/[ ,]+/)
+  const participants = payload.participants
   delete payload.addition.createdBy
   for (const participant of participants) {
     elastic.add({
