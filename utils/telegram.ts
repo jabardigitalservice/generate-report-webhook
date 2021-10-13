@@ -10,7 +10,7 @@ const client = new TelegramClient(new StringSession(config.get('api.session')), 
 
 const sendMessageWithUser = async (chatId: number, message: string, replyToMsgId?: number) => {
   if (client.disconnected) await client.connect()
-  return client.invoke(
+  client.invoke(
     new Api.messages.SendMessage({
       peer: chatId,
       message: message,
