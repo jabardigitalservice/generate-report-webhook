@@ -1,5 +1,5 @@
 const delay = (): void => {
-  setTimeout((): void => {}, 5000)
+  setTimeout((): void => {}, 10000)
 }
 
 export default delay

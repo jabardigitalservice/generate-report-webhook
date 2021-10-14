@@ -13,3 +13,5 @@ const connectQueue = (git: string) => {
 export const git = connectQueue('git')
 
 export const elastic = connectQueue('elastic')
+
+export const telegramSendUser = connectQueue('telegramSendUser')
