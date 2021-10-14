@@ -3,9 +3,10 @@ import captureScreenshot from '../capture/screenshot'
 import { sendBodyIsValid } from './elastic'
 import config from '../config'
 import { formatByCreated, formatByReview } from '../template/message'
-import { sendMessageWithBot, sendMessageWithUser, sendPhotoWithBot } from '../utils/telegram'
+import { sendMessageWithBot, sendPhotoWithBot } from '../utils/telegram'
 import { bodyInterface } from '../interface'
-import delay from '../utils/delay'
+import { telegramSendUser } from '../connect/queue'
+import { gitOptions } from '../options/job'
 
 const CHAT_ID = Number(config.get('chat.id'))
 const TELEGRAM_BOT = config.get('telegram.bot')
@@ -20,9 +21,8 @@ const sendTelegram = async (payload: bodyInterface): Promise<void> => {
       sendMessageWithBot(TELEGRAM_BOT, CHAT_ID, messageByReview)
     } else {
       const messageId = await sendPhotoWithBot(TELEGRAM_BOT, CHAT_ID, picture)
-      sendMessageWithUser(CHAT_ID, messageByCreated, messageId)
-      delay()
-      sendMessageWithUser(CHAT_ID, messageByReview, messageId)
+      telegramSendUser.add({ chat_id: CHAT_ID, message: messageByCreated, message_id: messageId }, gitOptions)
+      telegramSendUser.add({ chat_id: CHAT_ID, message: messageByReview, message_id: messageId }, gitOptions)
       fs.unlinkSync(picture)
     }
     sendBodyIsValid(payload)

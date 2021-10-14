@@ -10,7 +10,7 @@ const client = new TelegramClient(new StringSession(config.get('api.session')), 
 
 const sendMessageWithUser = async (chatId: number, message: string, replyToMsgId?: number) => {
   if (client.disconnected) await client.connect()
-  client.invoke(
+  return client.invoke(
     new Api.messages.SendMessage({
       peer: chatId,
       message: message,
@@ -22,14 +22,13 @@ const sendMessageWithUser = async (chatId: number, message: string, replyToMsgId
 }
 
 const sendMessageWithBot = async (telegramBot: string, chatId: number, message: string): Promise<void> => {
-  const response = await sendRequest({
+  await sendRequest({
     url: `${telegramApi}/${telegramBot}/sendMessage`,
     formData: {
       chat_id: chatId,
       text: message
     }
   })
-  if (response.statusCode !== 200) throw new Error(response.statusMessage)
 }
 
 const sendPhotoWithBot = async (telegramBot: string, chatId: number, picture: string): Promise<number> => {

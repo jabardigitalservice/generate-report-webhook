@@ -16,6 +16,7 @@
     "moment": "^2.29.1",
     "random-bigint": "0.0.1",
     "raven": "^2.6.4",
+    "redis": "^3.1.2",
     "request": "^2.88.2",
     "telegram": "^1.8.10",
     "ts-node": "^10.2.1",

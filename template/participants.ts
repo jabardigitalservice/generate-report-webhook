@@ -1,5 +1,6 @@
 import captureException from '../capture/exception'
 import config from '../config'
+import redis from '../connect/redis'
 import request from '../utils/request'
 
 interface rows {
@@ -9,7 +10,7 @@ interface rows {
 }
 
 const participantsMapping = (rows: rows[], users: string[]): string[] => {
-  let result = []
+  const result = []
   for (const user of users) {
     const isFound = false
     const rowSearch = searchRowsParticipants(rows, isFound, user)
@@ -39,16 +40,19 @@ const searchRowsParticipants = (rows: rows[], isFound: boolean, user: string): {
 export default async (participants: string) => {
   const users: string[] = participants.trimEnd().split(/[ ,]+/)
 
-  const response = await request({
-    url: `${config.get('excel.json.url')}`
-  })
-
-  if (response.statusCode !== 200) {
-    captureException(new Error(response.statusMessage))
-    return users
+  if (!await redis.get('participants')) {
+    const response = await request({
+      url: `${config.get('excel.json.url')}`
+    })
+    if (response.statusCode !== 200) {
+      captureException(new Error(response.statusMessage))
+      return users
+    }
+    const body = JSON.parse(response.body)
+    await redis.set('participants', JSON.stringify(body.rows))
   }
-  const body = JSON.parse(response.body)
-  const rows: rows[] = body.rows
+
+  const rows: rows[] = JSON.parse(await redis.get('participants'))
 
   return participantsMapping(rows, users)
 }
