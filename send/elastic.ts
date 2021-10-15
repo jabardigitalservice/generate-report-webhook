@@ -15,6 +15,7 @@ const sendBodyIsValid = (payload: bodyInterface): void => {
   const participants = payload.participants
   delete payload.addition.createdBy
   for (const participant of participants) {
+    if (!participant) continue
     elastic.add({
       index: indexElastic(),
       body: {

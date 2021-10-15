@@ -21,7 +21,8 @@ const sendMessageWithUser = async (chatId: number, message: string, replyToMsgId
   )
 }
 
-const sendMessageWithBot = async (telegramBot: string, chatId: number, message: string): Promise<void> => {
+const sendMessageWithBot = async (telegramBot: string, chatId: number, message?: string): Promise<void> => {
+  if (!message) return
   await sendRequest({
     url: `${telegramApi}/${telegramBot}/sendMessage`,
     formData: {

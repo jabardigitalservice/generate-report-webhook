@@ -37,8 +37,9 @@ elastic.process(function (job, done) {
 })
 
 telegramSendUser.process(async function (job, done) {
+  if (!job.data.message) return done()
   delay()
-  console.log('telegram send user');
+  console.log('telegram send user')
   try {
     await sendMessageWithUser(job.data.chat_id, job.data.message, job.data.message_id)
     done()
