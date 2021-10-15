@@ -17,9 +17,9 @@ git.process(async (job, done) => {
     sendTelegram(body)
       .then(() => done())
       .catch(error => {
-        console.log('error')
+        console.log('error ', error.message)
         captureException(error)
-        done(error)
+        done()
       })
       .finally(() => console.log('end'))
   } catch (error) {

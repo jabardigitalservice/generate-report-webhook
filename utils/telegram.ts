@@ -32,7 +32,8 @@ const sendMessageWithBot = async (telegramBot: string, chatId: number, message?:
   })
 }
 
-const sendPhotoWithBot = async (telegramBot: string, chatId: number, picture: string): Promise<number> => {
+const sendPhotoWithBot = async (telegramBot: string, chatId: number, picture?: string): Promise<number | null> => {
+  if (!picture) return null
   const response = await sendRequest({
     url: `${telegramApi}/${telegramBot}/sendPhoto`,
     formData: {
@@ -46,7 +47,7 @@ const sendPhotoWithBot = async (telegramBot: string, chatId: number, picture: st
       }
     }
   })
-  if (response.statusCode !== 200) throw new Error(response.statusMessage)
+  if (response.statusCode !== 200) return null
   const body = JSON.parse(response.body)
   const { message_id: messageId } = body.result
   return Number(messageId)

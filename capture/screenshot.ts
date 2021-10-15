@@ -2,7 +2,6 @@ import sendRequest from '../utils/request'
 import request from 'request'
 import config from '../config'
 import fs from 'fs'
-import captureException from './exception'
 
 const DIR = config.get('dir')
 
@@ -21,10 +20,7 @@ const screenshot = async (url: string): Promise<string | null> => {
       url: decodeURIComponent(url)
     }
   })
-  if (response.statusCode !== 200) {
-    captureException(new Error(response.statusMessage))
-    return null
-  }
+  if (response.statusCode !== 200) return null
   if (response.body) return await downloadImage(response.body)
 }
 

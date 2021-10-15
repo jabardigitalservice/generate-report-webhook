@@ -20,7 +20,6 @@ const sendBodyIsValid = (payload: bodyInterface): void => {
       index: indexElastic(),
       body: {
         project: payload.project.trimEnd(),
-        title: payload.title.trimEnd(),
         participant: participant,
         ...payload.addition,
         isBodyValid: true
