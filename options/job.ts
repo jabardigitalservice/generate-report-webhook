@@ -1,6 +1,6 @@
 const gitOptions = {
   delay: 10000,
-  attempts: 10,
+  attempts: 1,
   priority: 1,
   removeOnFail: true,
   removeOnComplete: true,
