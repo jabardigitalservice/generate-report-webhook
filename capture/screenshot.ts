@@ -2,6 +2,7 @@ import sendRequest from '../utils/request'
 import request from 'request'
 import config from '../config'
 import fs from 'fs'
+import captureException from './exception'
 
 const DIR = config.get('dir')
 
@@ -13,15 +14,20 @@ const generateFilePath = (): string => {
 }
 
 const screenshot = async (url: string): Promise<string | null> => {
-  const response = await sendRequest({
-    url: config.get('screenshot.url'),
-    method: 'POST',
-    form: {
-      url: decodeURIComponent(url)
-    }
-  })
-  if (response.statusCode !== 200) return null
-  if (response.body) return await downloadImage(response.body)
+  try {
+    const response = await sendRequest({
+      url: config.get('screenshot.url'),
+      method: 'POST',
+      form: {
+        url: decodeURIComponent(url)
+      }
+    })
+    if (response.statusCode !== 200) return null
+    if (response.body) return await downloadImage(response.body)
+  } catch (error) {
+    captureException(error)
+    return null
+  }
 }
 
 const downloadImage = async (url: string): Promise<string | null> => {
