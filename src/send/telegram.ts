@@ -1,12 +1,12 @@
 import fs from 'fs'
-import captureScreenshot from '../capture/screenshot'
+import captureScreenshot from '../helpers/screenshot'
 import { sendBodyIsValid } from './elastic'
 import config from '../config'
 import { formatByCreated, formatByReview } from '../template/message'
-import { sendMessageWithBot, sendPhotoWithBot } from '../utils/telegram'
+import { sendMessageWithBot, sendPhotoWithBot } from '../helpers/telegram'
 import { bodyInterface } from '../interface'
-import { telegramSendUser } from '../connect/queue'
-import { gitOptions } from '../options/job'
+import { telegramSendUser } from '../config/queue'
+import { gitOptions } from '../config/job'
 
 const CHAT_ID = Number(config.get('chat.id'))
 const TELEGRAM_BOT = config.get('telegram.bot')

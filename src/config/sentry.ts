@@ -1,6 +1,6 @@
 import raven from 'raven'
-import config from '../config'
-import lang from '../utils/lang'
+import config from '.'
+import lang from '../helpers/lang'
 
 raven.config(config.get('sentry.dsn'), {
   environment: config.get('node.env')

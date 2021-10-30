@@ -1,5 +1,5 @@
 import { Client } from '@elastic/elasticsearch'
-import config from '../config'
+import config from '.'
 
 const client = new Client({
   cloud: {

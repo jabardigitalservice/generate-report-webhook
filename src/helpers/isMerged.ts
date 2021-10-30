@@ -1,4 +1,4 @@
-import { mergedOption } from '../options/git'
+import { mergedOption } from '../config/git'
 
 const isMerged = (git: string, body: any): boolean => {
   const locations = mergedOption[git].locations
