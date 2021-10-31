@@ -23,7 +23,7 @@ git.process(async (job, done) => {
       })
       .finally(() => console.log('end'))
   } catch (error) {
-    console.log(error.message)
+    console.log('end')
     sendBodyIsNotValid(data)
     done()
   }
