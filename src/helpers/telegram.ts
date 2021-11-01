@@ -4,14 +4,10 @@ import { StringSession } from 'telegram/sessions'
 import random from 'random-bigint'
 import config from '../config'
 import sendRequest from './request'
+const stringSession = new StringSession(config.get('api.session'))
 
 const telegramApi = config.get('telegram.api')
-const client = new TelegramClient(
-  new StringSession(config.get('api.session')),
-  Number(config.get('api.id')),
-  config.get('api.hash'),
-  {}
-)
+const client = new TelegramClient(stringSession, Number(config.get('api.id')), config.get('api.hash'), {})
 
 const sendMessageWithUser = async (chatId: number, message: string, replyToMsgId?: number) => {
   if (client.disconnected) await client.connect()
