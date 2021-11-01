@@ -1,8 +1,8 @@
 import moment from 'moment'
 import config from '../config'
-import { elastic } from '../connect/queue'
+import { elastic } from '../config/queue'
 import { bodyInterface, payloadInterface } from '../interface'
-import { elasticOptions } from '../options/job'
+import { elasticOptions } from '../config/job'
 
 const now = (): string => {
   return moment().format('YYYY.MM.DD')

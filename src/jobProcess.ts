@@ -1,12 +1,12 @@
-import { git, elastic, telegramSendUser } from './connect/queue'
-import payload from './utils/payload'
-import connectElastic from './connect/elastic'
-import delay from './utils/delay'
+import { git, elastic, telegramSendUser } from './config/queue'
+import payload from './helpers/payload'
+import connectElastic from './config/elastic'
+import delay from './helpers/delay'
 import templateBody from './template/body'
-import captureException from './capture/exception'
+import captureException from './config/sentry'
 import sendTelegram from './send/telegram'
 import { sendBodyIsNotValid } from './send/elastic'
-import { sendMessageWithUser } from './utils/telegram'
+import { sendMessageWithUser } from './helpers/telegram'
 
 git.process(async (job, done) => {
   delay()
@@ -23,7 +23,7 @@ git.process(async (job, done) => {
       })
       .finally(() => console.log('end'))
   } catch (error) {
-    console.log(error.message)
+    console.log('end')
     sendBodyIsNotValid(data)
     done()
   }

@@ -1,10 +1,11 @@
 import bodyParser from 'body-parser'
 import express from 'express'
-import verifySecretKey from './utils/verifySecretKey'
-import { git as gitConnect } from './connect/queue'
-import isMerged from './utils/isMerged'
-import { gitOptions } from './options/job'
+import verifySecretKey from './helpers/verifySecretKey'
+import { git as gitConnect } from './config/queue'
+import isMerged from './helpers/isMerged'
+import { gitOptions } from './config/job'
 import config from './config'
+import './jobProcess'
 
 const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))

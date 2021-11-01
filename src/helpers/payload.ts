@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { payloadInterface } from '../interface'
-import { payloadOption } from '../options/git'
+import { payloadOption } from '../config/git'
 
 const payload = (data: any): payloadInterface => {
   const git: string = data.git

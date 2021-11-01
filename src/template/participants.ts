@@ -1,7 +1,7 @@
-import captureException from '../capture/exception'
+import captureException from '../config/sentry'
 import config from '../config'
-import redis from '../connect/redis'
-import request from '../utils/request'
+import redis from '../config/redis'
+import request from '../helpers/request'
 
 interface rows {
   Timestamp: Date,

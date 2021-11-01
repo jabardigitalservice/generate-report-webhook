@@ -12,7 +12,7 @@
     "skipLibCheck": true
   },
   "include": [
-    "./**/*.ts",
-    "./locales/*.json"
+    "./src/**/*.ts",
+    "./src/locales/*.json"
   ]
 }

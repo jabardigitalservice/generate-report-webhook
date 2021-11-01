@@ -1,8 +1,8 @@
-import sendRequest from '../utils/request'
+import sendRequest from './request'
 import request from 'request'
 import config from '../config'
 import fs from 'fs'
-import captureException from './exception'
+import captureException from '../config/sentry'
 
 const DIR = config.get('dir')
 

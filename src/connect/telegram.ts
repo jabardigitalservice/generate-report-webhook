@@ -4,12 +4,11 @@ import input from 'input'
 import config from '../config'
 
 const stringSession = new StringSession('')
+const client = new TelegramClient(stringSession, Number(config.get('api.id')), config.get('api.hash'), {
+  connectionRetries: 5
+})
 
 const connectTelegram = async () => {
-  console.log('Loading interactive example...')
-  const client = new TelegramClient(stringSession, config.get('api.id'), config.get('api.hash'), {
-    connectionRetries: 5
-  })
   await client.start({
     phoneNumber: async () => await input.text('Please enter your number: '),
     password: async () => await input.password('Please enter your password: '),

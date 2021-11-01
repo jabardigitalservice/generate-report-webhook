@@ -19,23 +19,8 @@ services:
       - .env
     environment:
       REDIS_HOST: redis
-      DOCKER_APP: app
     ports:
       - "${PORT}:${PORT}"
-    depends_on:
-      - redis
-    networks:
-      - generate-report-webhook
-
-  job:
-    image: generate-report-webhook
-    restart: always
-    container_name: "${APP_NAME}_JOB"
-    env_file:
-      - .env
-    environment:
-      REDIS_HOST: redis
-      DOCKER_APP: job
     depends_on:
       - redis
     networks:
