@@ -5,7 +5,7 @@ import { bodyInterface, payloadInterface } from '../interface'
 import { elasticOptions } from '../config/job'
 
 const now = (): string => {
-  return moment().format('YYYY.MM.DD')
+  return moment().format('YYYY.MM')
 }
 const indexElastic = (): string => {
   return `${config.get('app.name')}-${now()}`
