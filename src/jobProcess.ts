@@ -16,27 +16,27 @@ git.process(async (job, done) => {
     console.log('start')
     sendTelegram(body)
       .then(() => done())
-      .catch(error => {
-        console.log('error ', error.message)
+      .catch((error) => {
+        console.log('error', error.message)
         captureException(error)
         done()
       })
       .finally(() => console.log('end'))
   } catch (error) {
-    console.log('end')
+    console.log('end', error.message)
     sendBodyIsNotValid(data)
     done()
   }
 })
 
-elastic.process(function (job, done) {
+elastic.process((job, done) => {
   delay()
   connectElastic.index(job.data)
     .then(() => done())
-    .catch(error => captureException(error))
+    .catch((error) => captureException(error))
 })
 
-telegramSendUser.process(async function (job, done) {
+telegramSendUser.process(async (job, done) => {
   if (!job.data.message) return done()
   delay()
   console.log('telegram send user')

@@ -2,7 +2,7 @@ import config from 'env-dot-prop'
 import dotEnv from 'dotenv'
 
 dotEnv.config({
-  path: '../../.env'
+  path: '../../.env',
 })
 
 if (!config.get('node.env')) dotEnv.config()

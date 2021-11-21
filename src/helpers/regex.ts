@@ -1,5 +1,3 @@
-const regex = (string: string): RegExp => {
-  return new RegExp(string, 'i')
-}
+const regex = (string: string): RegExp => new RegExp(string, 'i')
 
 export default regex

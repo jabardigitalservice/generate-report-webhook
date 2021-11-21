@@ -4,14 +4,14 @@ import { sendBodyIsValid } from './elastic'
 import config from '../config'
 import { formatByCreated, formatByReview } from '../template/message'
 import { sendMessageWithBot, sendPhotoWithBot } from '../helpers/telegram'
-import { bodyInterface } from '../interface'
+import { BodyInterface } from '../interface'
 import { telegramSendUser } from '../config/queue'
 import { gitOptions } from '../config/job'
 
 const CHAT_ID = Number(config.get('chat.id'))
 const TELEGRAM_BOT = config.get('telegram.bot')
 
-const sendTelegram = async (payload: bodyInterface): Promise<void> => {
+const sendTelegram = async (payload: BodyInterface): Promise<void> => {
   const messageByCreated = formatByCreated(payload)
   const messageByReview = formatByReview(payload)
   const picture = await captureScreenshot(payload.url)

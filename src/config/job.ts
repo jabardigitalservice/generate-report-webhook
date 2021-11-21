@@ -5,7 +5,7 @@ const gitOptions = {
   removeOnFail: true,
   removeOnComplete: true,
   backoff: 5000,
-  timeout: 30000
+  timeout: 30000,
 }
 
 const elasticOptions = {
@@ -14,10 +14,10 @@ const elasticOptions = {
   removeOnComplete: true,
   removeOnFail: true,
   backoff: 20000,
-  timeout: 10000
+  timeout: 10000,
 }
 
 export {
   gitOptions,
-  elasticOptions
+  elasticOptions,
 }

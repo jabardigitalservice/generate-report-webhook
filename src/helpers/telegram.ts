@@ -4,6 +4,7 @@ import { StringSession } from 'telegram/sessions'
 import random from 'random-bigint'
 import config from '../config'
 import sendRequest from './request'
+
 const stringSession = new StringSession(config.get('api.session'))
 
 const telegramApi = config.get('telegram.api')
@@ -14,11 +15,11 @@ const sendMessageWithUser = async (chatId: number, message: string, replyToMsgId
   return client.invoke(
     new Api.messages.SendMessage({
       peer: chatId,
-      message: message,
+      message,
       randomId: random(128),
       noWebpage: true,
-      replyToMsgId: replyToMsgId
-    })
+      replyToMsgId,
+    }),
   )
 }
 
@@ -28,8 +29,8 @@ const sendMessageWithBot = async (telegramBot: string, chatId: number, message?:
     url: `${telegramApi}/${telegramBot}/sendMessage`,
     formData: {
       chat_id: chatId,
-      text: message
-    }
+      text: message,
+    },
   })
 }
 
@@ -43,10 +44,10 @@ const sendPhotoWithBot = async (telegramBot: string, chatId: number, picture?: s
         value: fs.createReadStream(picture),
         options: {
           filename: picture,
-          contentType: 'image/png'
-        }
-      }
-    }
+          contentType: 'image/png',
+        },
+      },
+    },
   })
   if (response.statusCode !== 200) return null
   const body = JSON.parse(response.body)
@@ -57,5 +58,5 @@ const sendPhotoWithBot = async (telegramBot: string, chatId: number, picture?: s
 export {
   sendMessageWithUser,
   sendMessageWithBot,
-  sendPhotoWithBot
+  sendPhotoWithBot,
 }

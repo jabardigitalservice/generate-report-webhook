@@ -3,11 +3,11 @@ import config from '.'
 
 const client = new Client({
   cloud: {
-    id: config.get('elastic.cloud.id')
+    id: config.get('elastic.cloud.id'),
   },
   auth: {
-    apiKey: config.get('elastic.api.key')
-  }
+    apiKey: config.get('elastic.api.key'),
+  },
 })
 
 export default client

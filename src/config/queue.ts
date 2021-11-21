@@ -1,14 +1,12 @@
 import Queue from 'bull'
-import config from '../config'
+import config from '.'
 
-const connectQueue = (git: string) => {
-  return new Queue(git, {
-    redis: {
-      host: config.get('redis.host'),
-      port: config.get('redis.port')
-    }
-  })
-}
+const connectQueue = (git: string) => new Queue(git, {
+  redis: {
+    host: config.get('redis.host'),
+    port: config.get('redis.port'),
+  },
+})
 
 export const git = connectQueue('git')
 

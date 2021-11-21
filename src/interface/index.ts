@@ -1,4 +1,4 @@
-export interface payloadInterface {
+export interface PayloadInterface {
   repositoryName: string,
   repositoryUrl: string,
   platform: string,
@@ -7,23 +7,23 @@ export interface payloadInterface {
   createdBy?: string,
   createdAt: Date
 }
-export interface bodyInterface {
+export interface BodyInterface {
   project: string,
   title: string,
   participants: string[],
   isValidBody: boolean,
   url: string,
-  addition: payloadInterface
+  addition: PayloadInterface
 }
 
-export interface mergedOptionInterface {
+export interface MergedOptionInterface {
   [key: string]: {
     locations: string[],
     condition: string
   }
 }
 
-export interface payloadOptionInterface {
+export interface PayloadOptionInterface {
   [key: string]: {
     repositoryName: string[],
     repositoryUrl: string[],

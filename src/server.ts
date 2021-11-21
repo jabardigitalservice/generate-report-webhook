@@ -14,8 +14,8 @@ app.use(bodyParser.json())
 app.post('/webhook/:secret/:git', async (req, res) => {
   try {
     verifySecretKey(req.params.secret)
-    const git = req.params.git
-    const body = req.body
+    const { git } = req.params
+    const { body } = req
     if (!isMerged(git, body)) return res.send('pending ...')
     gitConnect.add({ git, body }, gitOptions).then(() => console.log('add git queue'))
     return res.send('success')

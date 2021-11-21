@@ -3,7 +3,10 @@
     "commonjs": true,
     "es2021": true
   },
-  "extends": ["standard"],
+  "extends": [
+    "airbnb-base",
+    "airbnb-typescript/base"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly",
@@ -14,8 +17,23 @@
     "@typescript-eslint"
   ],
   "parserOptions": {
-    "ecmaVersion": 2021
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
   "rules": {
+    "semi": "off",
+    "no-underscore-dangle": 0,
+    "@typescript-eslint/return-await": "off",
+    "no-console": "off",
+    "no-restricted-syntax": "off",
+    "guard-for-in": "off",
+    "@typescript-eslint/no-shadow": "off",
+    "consistent-return": "off",
+    "max-len": "off",
+    "no-continue": "off",
+    "@typescript-eslint/semi": "off",
+    "no-param-reassign": "off",
+    "prefer-destructuring": "off"
   }
 }

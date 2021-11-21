@@ -3,7 +3,7 @@ import config from '.'
 import lang from '../locales/lang'
 
 raven.config(config.get('sentry.dsn'), {
-  environment: config.get('node.env')
+  environment: config.get('node.env'),
 }).install()
 
 const captureException = (error: Error): void => {

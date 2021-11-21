@@ -1,24 +1,24 @@
-import { mergedOptionInterface, payloadOptionInterface } from '../interface'
+import { MergedOptionInterface, PayloadOptionInterface } from '../interface'
 
-const mergedOption: mergedOptionInterface = {
+const mergedOption: MergedOptionInterface = {
   github: {
     locations: ['action'],
-    condition: 'closed'
+    condition: 'closed',
   },
   gitlab: {
     locations: ['object_attributes', 'action'],
-    condition: 'merge'
-  }
+    condition: 'merge',
+  },
 }
 
-const payloadOption: payloadOptionInterface = {
+const payloadOption: PayloadOptionInterface = {
   github: {
     repositoryName: ['body', 'pull_request', 'head', 'repo', 'name'],
     repositoryUrl: ['body', 'pull_request', 'head', 'repo', 'html_url'],
     platform: ['git'],
     url: ['body', 'pull_request', 'html_url'],
     body: ['body', 'pull_request', 'body'],
-    createdBy: ['body', 'pull_request', 'user', 'login']
+    createdBy: ['body', 'pull_request', 'user', 'login'],
   },
   gitlab: {
     repositoryName: ['body', 'repository', 'name'],
@@ -26,11 +26,11 @@ const payloadOption: payloadOptionInterface = {
     platform: ['git'],
     url: ['body', 'object_attributes', 'url'],
     body: ['body', 'object_attributes', 'description'],
-    createdBy: ['body', 'user', 'username']
-  }
+    createdBy: ['body', 'user', 'username'],
+  },
 }
 
 export {
   mergedOption,
-  payloadOption
+  payloadOption,
 }

@@ -1,6 +1,6 @@
-import { bodyInterface } from '../interface'
+import { BodyInterface } from '../interface'
 
-export const formatByCreated = (payload: bodyInterface): string | null => {
+export const formatByCreated = (payload: BodyInterface): string | null => {
   const message = `
 /lapor ${payload.project} | ${payload.title}
 Peserta: ${payload.participants[0]}
@@ -9,7 +9,7 @@ Lampiran: ${payload.url}
   return payload.participants[0] ? message : null
 }
 
-export const formatByReview = (payload: bodyInterface): string | null => {
+export const formatByReview = (payload: BodyInterface): string | null => {
   const message = `
 /lapor ${payload.project} | Peer code review ${payload.title}
 Peserta: ${payload.participants.slice(1).join('  ')}

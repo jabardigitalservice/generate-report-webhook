@@ -1,9 +1,9 @@
 import moment from 'moment'
-import { payloadInterface } from '../interface'
+import { PayloadInterface } from '../interface'
 import { payloadOption } from '../config/git'
 
-const payload = (data: any): payloadInterface => {
-  const git: string = data.git
+const payload = (data: any): PayloadInterface => {
+  const { git } = data
   const property:any = payloadOption[git]
   const item: any = {}
   for (const key in property) {
