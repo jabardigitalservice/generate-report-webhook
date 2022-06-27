@@ -10,9 +10,10 @@ This git webhook includes gitlab and github, installed in git organization setti
 2. Added evidence format in the description section
 ```bash
 ## Evidence
-- title: 
-- project: 
-- participants: 
+- title:
+- project:
+- participants:
+- date: (Optional)
 ```
 3. do Merge
 4. The report will be sent directly by the Telegram bot, containing a screenshot of the pull request/merge request, title, project, participants, url

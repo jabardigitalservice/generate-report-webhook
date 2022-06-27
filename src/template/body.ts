@@ -7,6 +7,7 @@ const bodyRegex = {
   project: regex('project: (.+)'),
   title: regex('title: (.+)'),
   participants: regex('participants: (.+)'),
+  date: regex('date: (.+)'),
 }
 
 const getBody = (body: any) => {
@@ -29,6 +30,9 @@ const body = async (payload: any): Promise<BodyInterface> => {
     title: bodyRegex.title.exec(payload.body),
     participants: bodyRegex.participants.exec(payload.body),
   })
+
+  const date = bodyRegex.date.exec(payload.body)
+  body.date = date ? date[1] : null
 
   delete payload.body
 

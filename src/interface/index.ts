@@ -11,6 +11,7 @@ export interface BodyInterface {
   project: string,
   title: string,
   participants: string[],
+  date?: string,
   isValidBody: boolean,
   url: string,
   addition: PayloadInterface
