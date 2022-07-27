@@ -14,7 +14,7 @@ const TELEGRAM_BOT = config.get('telegram.bot')
 const sendTelegram = async (payload: BodyInterface): Promise<void> => {
   const messageByCreated = formatByCreated(payload)
   const messageByReview = formatByReview(payload)
-  const picture = await captureScreenshot(payload.url)
+  const picture = await captureScreenshot(payload.screenshot ? payload.screenshot : payload.url)
   const messageId = await sendPhotoWithBot(TELEGRAM_BOT, CHAT_ID, picture)
 
   if (picture && messageId) {

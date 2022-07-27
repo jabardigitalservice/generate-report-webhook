@@ -8,6 +8,7 @@ const bodyRegex = {
   title: regex('title: (.+)'),
   participants: regex('participants: (.+)'),
   date: regex('date: (.+)'),
+  screenshot: regex('screenshot: (.+)'),
 }
 
 const getBody = (body: any) => {
@@ -33,6 +34,8 @@ const body = async (payload: any): Promise<BodyInterface> => {
 
   const date = bodyRegex.date.exec(payload.body)
   body.date = date ? date[1] : null
+  const screenshot = bodyRegex.screenshot.exec(payload.body)
+  body.screenshot = screenshot ? screenshot[1] : null
 
   delete payload.body
 

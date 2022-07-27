@@ -12,6 +12,7 @@ export interface BodyInterface {
   title: string,
   participants: string[],
   date?: string,
+  screenshot?: string,
   isValidBody: boolean,
   url: string,
   addition: PayloadInterface
