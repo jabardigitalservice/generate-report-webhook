@@ -1,5 +1,6 @@
 import request from 'request'
 import fs from 'fs'
+import path from 'path'
 import sendRequest from './request'
 import config from '../config'
 import captureException from '../config/sentry'
@@ -29,7 +30,15 @@ const downloadImage = async (url: string): Promise<string | null> => {
   })
 }
 
+const isUrlImage = (url: string) => {
+  const fileTypes = new RegExp(config.get('file.type'))
+
+  return fileTypes.test(path.extname(url).toLowerCase())
+}
+
 const screenshot = async (url: string): Promise<string | null> => {
+  if (isUrlImage(url)) return await downloadImage(url)
+
   try {
     const response = await sendRequest({
       url: config.get('screenshot.url'),
